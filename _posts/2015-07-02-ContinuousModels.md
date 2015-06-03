@@ -2,7 +2,7 @@
 layout:     post
 title:      Models of continuous character evolution
 date:       2015-06-02
-summary:    fit a series of evolutionary models for continuous characters.
+summary:    Fit a series of evolutionary models for continuous characters.
 categories: Instruction
 ---
 

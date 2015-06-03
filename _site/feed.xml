@@ -35,6 +35,326 @@ students will be responsible for their own travel arrangements home after the wo
       </item>
     
       <item>
+        <title>Diversification models</title>
+        <description>&lt;p&gt;We will now study diversification models, including birth-death models and models where diversification rates depend on characters.&lt;/p&gt;
+
+&lt;p&gt;We can start by considering a very simple model, the pure-birth model. Under a pure-birth model, lineages accumulate by speciation (there is no extinction) at a constant per-lineage rate lambda.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ape&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;TreeSim&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: geiger
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diversitree&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: deSolve
+## Loading required package: subplex
+## Loading required package: Rcpp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;laser&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# We can use TreeSim to simulate a tree under a pure birth model we will use&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# TreeSim and, for now, simulate trees of a fixed age (but varying numbers&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# of taxa)&lt;/span&gt;
+
+simTree1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-11.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# notice that if we repeat this command we get a different tree&lt;/span&gt;
+
+simTree2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-12.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# the pattern of lineage accumulation through time for a tree can be&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# visualized with a Lineage-through-time plot&lt;/span&gt;
+
+ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-13.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# ok - but we should always log the y-axis for ltt plots&lt;/span&gt;
+ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-14.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-15.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# What is the distribution of tree size under a pure-birth model?&lt;/span&gt;
+ntips &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    st &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# rarely, there will be only one tip, and the function will return &amp;#39;1&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;st&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        ntips&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; ntips&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;st&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;tip.label&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+hist&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ntips&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-16.png&quot; alt=&quot;plot of chunk unnamed-chunk-1&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;It is worth showing the shape of LTT plots under a pure-birth model. To simplify this, we can fix both the age of the clade and the number of taxa. To make this work with TreeSim, we should choose a value of lambda that satisfies the expected relationship under a pure-birth model, E[n(t)] = 2 exp(lambda * t). So if we choose t = 10 and lambda = 0.4, as above, then E[N(t)] = 2 exp(0.4 * 10) = about 109 tips.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;allTheTrees &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mrca &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    ltt.lines&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-2.png&quot; alt=&quot;plot of chunk unnamed-chunk-2&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;So, under a pure-birth model, we expect the lineage-through-time plot to be linear on a log scale. What if we add extinction?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;allTheTrees2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mrca &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees2&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    ltt.lines&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees2&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-3.png&quot; alt=&quot;plot of chunk unnamed-chunk-3&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Extinction leaves a signature in the shape of phylogenetic trees. We can see that in the lineage-through-time plot, which bends up towards the present day. We can also see this in the trees themselves:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;simTree1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+simTree2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+
+par&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mfcol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; main &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Pure Birth&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; main &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Birth-death&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-4.png&quot; alt=&quot;plot of chunk unnamed-chunk-4&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;One important thing to keep in mind with diversification rate analysis is that sampling can be critical. To see why, let&amp;rsquo;s use simulations of partially sampled data:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;simTree1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+simTree2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    frac &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+
+par&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mfcol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; main &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Fully sampled&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; main &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Partially sampled&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-5.png&quot; alt=&quot;plot of chunk unnamed-chunk-5&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# what is the general pattern?&lt;/span&gt;
+
+allTheTrees3 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.taxa.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mrca &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; frac &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;109&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot.new&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ltt.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees3&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    ltt.lines&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;allTheTrees3&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-6.png&quot; alt=&quot;plot of chunk unnamed-chunk-6&quot;&gt;&lt;/p&gt;
+
+&lt;h1&gt; Estimating speciation and extinction rates &lt;/h1&gt;
+
+&lt;p&gt;We can estimate speciation and extinction rates from phylogenetic trees by fitting the models described above, pure-birth and birth-death. We will use diversitree so that we can start to figure out how it works.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;simTree1 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; sim.bd.age&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;age &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; numbsim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# first fit a Yule model&lt;/span&gt;
+pbModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; make.yule&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pbMLFit &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; find.mle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# next fit a Birth-death model&lt;/span&gt;
+bdModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; make.bd&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+bdMLFit &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; find.mle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bdModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;optim&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lower &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# compare models&lt;/span&gt;
+anova&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bdMLFit&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; pure.birth &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pbMLFit&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##            Df lnLik   AIC ChiSq Pr(&amp;gt;|Chi|)
+## full        2  39.4 -74.7
+## pure.birth  1  38.7 -75.3  1.43       0.23
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The beauty of diversitree is that we can very easily run a Bayesian analysis of diversification rates.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bdSamples &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; mcmc&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bdModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; bdMLFit&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;par&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; nsteps &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1e+05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lower &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; upper &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;Inf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;kc&quot;&gt;Inf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; w &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fail.value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;Inf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; print.every &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 10000: {0.7066, 0.4345} -&amp;gt; 38.23901
+## 20000: {0.6983, 0.4807} -&amp;gt; 38.61153
+## 30000: {0.4707, 0.1993} -&amp;gt; 39.34786
+## 40000: {0.3968, 0.0109} -&amp;gt; 38.59093
+## 50000: {0.5818, 0.5375} -&amp;gt; 37.45965
+## 60000: {0.7548, 0.3742} -&amp;gt; 36.23272
+## 70000: {0.5073, 0.2229} -&amp;gt; 39.27743
+## 80000: {0.7477, 0.5798} -&amp;gt; 38.32425
+## 90000: {0.4992, 0.2517} -&amp;gt; 39.36961
+## 100000: {0.4649, 0.2432} -&amp;gt; 39.27638
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;postSamples &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; bdSamples&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;lambda&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;mu&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+profiles.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;postSamples&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; col.line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; las &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; legend &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;topright&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-81.png&quot; alt=&quot;plot of chunk unnamed-chunk-8&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# often estimates of r (= lambda-mu) are more precise than either lambda and&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# mu&lt;/span&gt;
+postSamples&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;r &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bdSamples&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; mu&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+postSamples&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;eps &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bdSamples&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;lambda&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+profiles.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;postSamples&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;r&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;eps&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; col.line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; las &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    legend &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;topright&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-82.png&quot; alt=&quot;plot of chunk unnamed-chunk-8&quot;&gt;&lt;/p&gt;
+
+&lt;h1&gt; Testing for slowdowns &lt;/h1&gt;
+
+&lt;p&gt;We can test for slowdowns in the rate of diversification through time using both Pybus and Harvey&amp;rsquo;s gamma - a very common test in the literature - and likelihood using Rabosky&amp;rsquo;s approach.&lt;/p&gt;
+
+&lt;p&gt;We can start with gamma:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# let&amp;#39;s try our simulated tree&lt;/span&gt;
+gs &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gammaStat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+mccrResult &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; mccrTest&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;CladeSize &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simTree1&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;tip.label&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; NumberMissing &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    NumberOfReps &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ObservedGamma &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; gs&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# now let&amp;#39;s try the anole tree. This tree is incomplete, so we have to&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# account for that.&lt;/span&gt;
+gsAnole &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; gammaStat&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Error: object &amp;#39;anoleTree&amp;#39; not found
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mccrResultAnole &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; mccrTest&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;CladeSize &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;tip.label&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; NumberMissing &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;70&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    NumberOfReps &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ObservedGamma &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; gsAnole&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Error: object &amp;#39;anoleTree&amp;#39; not found
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# we can use likelihood to compare a set of models for diversification. This&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# REQUIRES a complete tree, which we do not have - so these results are&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# incorrect&lt;/span&gt;
+
+anoleBTimes &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;branching.times&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; decreasing &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Error: object &amp;#39;anoleTree&amp;#39; not found
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;fitdAICrc&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleBTimes&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; modelset &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;pureBirth&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;bd&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;DDX&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;DDL&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;yule2rate&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    ints &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Error: object &amp;#39;anoleBTimes&amp;#39; not found
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt; Relating diversification rates to character state &lt;/h1&gt;
+
+&lt;p&gt;We can test for a relationship between character state and diversification rates using BiSSE (and related approaches). The syntax for BiSSE is consistent with other aspects of diversitree that we learned above. We will try this with anole ecomorph data. BiSSE can only handle binary traits, so we will have to change our data over to a binary (0-1) character.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# let&amp;#39;s try a simulated data set to see if we can really detect a true&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# effect&lt;/span&gt;
+
+simPars &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;set.seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+simBisseData &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; tree.bisse&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simPars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; max.t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x0 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+hist &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; history.from.sim.discrete&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simBisseData&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;hist&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; simBisseData&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-101.png&quot; alt=&quot;plot of chunk unnamed-chunk-10&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nbModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; make.bisse&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simBisseData&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; simBisseData&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;tip.state&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+p &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; starting.point.bisse&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;simBisseData&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+nbModelMLFit &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; find.mle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; p&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;rbind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;real &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; simPars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; estimated &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;coef&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nbModelMLFit&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##           lambda0 lambda1  mu0  mu1  q01  q10
+## real          0.4    0.20 0.05 0.05 0.05 0.05
+## estimated     0.4    0.23 0.00 0.47 0.14 0.00
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# we can test a constrained model where the character does not affect&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# diversification rates&lt;/span&gt;
+
+cnbModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; constrain&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lambda1 &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; lambda0&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+cnbModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; constrain&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cnbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu1 &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; mu0&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+cnbModelMLFit &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; find.mle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cnbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; p&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# compare models&lt;/span&gt;
+
+anova&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nbModelMLFit&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; constrained &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cnbModelMLFit&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##             Df lnLik AIC ChiSq Pr(&amp;gt;|Chi|)
+## full         6  -212 437
+## constrained  4  -214 436  2.63       0.27
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# let&amp;#39;s try a Bayesian analysis&lt;/span&gt;
+
+prior &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; make.prior.exponential&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# this is not long enough but ok for now. You might want more like 1000000&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# generations.&lt;/span&gt;
+mcmcRun &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; mcmc&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;nbModel&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; nbModelMLFit&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;par&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; nsteps &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; prior &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; prior&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; w &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    print.every &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 100: {0.4764, 0.2365, 0.1580, 0.4976, 0.1726, 0.0994} -&amp;gt; -214.90686
+## 200: {0.5063, 0.2716, 0.0322, 0.2143, 0.1433, 0.2130} -&amp;gt; -215.33748
+## 300: {0.5721, 0.5181, 0.4216, 0.1710, 0.1484, 0.6746} -&amp;gt; -219.73947
+## 400: {0.4758, 0.1728, 0.0528, 0.0562, 0.1831, 0.4297} -&amp;gt; -214.32404
+## 500: {0.4167, 0.4111, 0.0252, 0.5534, 0.2293, 0.4296} -&amp;gt; -215.97337
+## 600: {0.2608, 0.3070, 0.0342, 0.2933, 0.2619, 0.3821} -&amp;gt; -222.18071
+## 700: {0.4375, 0.7609, 0.1531, 0.5333, 0.8031, 2.9827} -&amp;gt; -225.98707
+## 800: {0.4527, 0.1641, 0.3006, 0.3028, 0.0885, 0.0087} -&amp;gt; -218.23327
+## 900: {0.4327, 0.2812, 0.1906, 0.1734, 0.1400, 0.3540} -&amp;gt; -215.15756
+## 1000: {0.4310, 0.2367, 0.0852, 0.4269, 0.1284, 0.0251} -&amp;gt; -213.39588
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;col &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+profiles.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;lambda0&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;lambda1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; col.line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; las &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; legend &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;topright&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-102.png&quot; alt=&quot;plot of chunk unnamed-chunk-10&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;profiles.plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;mu0&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;mu1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; col.line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; las &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; legend &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;topright&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/bd/unnamed-chunk-103.png&quot; alt=&quot;plot of chunk unnamed-chunk-10&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# looks like speciation rate differs, but not extinction. can we confirm?&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda0 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.875
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;mu0 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;mu1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mcmcRun&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;mu1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.212
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt; Challenge problem &lt;/h1&gt;
+
+&lt;p&gt;Repeat the above analyses with anoles (using the trait below). Fit a BiSSE model using both ML and Bayesian methods. What do you conclude?&lt;/p&gt;
+
+&lt;p&gt;You need a binary trait, so use the following:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;anoleData &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;~/Documents/teaching/revellClass/2014bogota/continuousModels/anolisDataAppended.csv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    row.names &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+anoleTree &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.tree&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;~/Documents/teaching/revellClass/2014bogota/continuousModels/anolis.phy&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ecomorph &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; anoleData&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;ecomorph&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ecomorph&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rownames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleData&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+isTG &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ecomorph &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;TG&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;isTG&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ecomorph&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+isTG
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##            ahli         alayoni         alfaroi        aliniger
+##               1               0               0               0
+##        allisoni         allogus   altitudinalis         alumina
+##               0               1               0               0
+##       alutaceus     angusticeps     argenteolus     argillaceus
+##               0               0               0               0
+##         armouri   bahorucoensis        baleatus        baracoae
+##               1               0               0               0
+##       barahonae        barbatus        barbouri        bartschi
+##               0               0               0               0
+##         bremeri        breslini    brevirostris        caudalis
+##               1               1               0               0
+##       centralis  chamaeleonides    chlorocyanus     christophei
+##               0               0               0               0
+##       clivicola     coelestinus        confusus           cooki
+##               0               0               1               1
+##    cristatellus    cupeyalensis         cuvieri    cyanopleurus
+##               1               0               0               0
+##         cybotes     darlingtoni       distichus dolichocephalus
+##               1               0               0               0
+##       equestris      etheridgei   eugenegrahami       evermanni
+##               0               0               0               0
+##         fowleri         garmani         grahami           guafe
+##               0               0               0               1
+##       guamuhaya         guazuma       gundlachi       haetianus
+##               0               0               1               1
+##      hendersoni      homolechis           imias    inexpectatus
+##               0               1               1               0
+##       insolitus        isolepis           jubar           krugi
+##               0               0               1               0
+##      lineatopus   longitibialis        loysiana          lucius
+##               1               1               0               0
+##    luteogularis      macilentus        marcanoi          marron
+##               0               0               1               0
+##         mestrei       monticola          noblei        occultus
+##               1               0               0               0
+##         olssoni        opalinus      ophiolepis        oporinus
+##               0               0               0               0
+##        paternus        placidus       poncensis        porcatus
+##               0               0               0               0
+##          porcus      pulchellus         pumilis quadriocellifer
+##               0               0               0               1
+##      reconditus        ricordii     rubribarbus          sagrei
+##               0               0               1               1
+##    semilineatus        sheplani         shrevei      singularis
+##               0               0               1               0
+##      smallwoodi         strahmi       stratulus     valencienni
+##               0               1               0               0
+##       vanidicus    vermiculatus        websteri       whitemani
+##               0               0               0               1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        <pubDate>Tue, 02 Jun 2015 00:00:00 -0700</pubDate>
+        <link>http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/06/02/diversification/</link>
+        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/06/02/diversification/</guid>
+      </item>
+    
+      <item>
         <title>Models of continuous character evolution</title>
         <description>&lt;p&gt;Let&amp;rsquo;s fit some models of continuous character evolution. First, we will learn how to do some tests of &amp;ldquo;phylogenetic signal,&amp;rdquo; a very common test especially for ecological analyses. Then we will learn how to fit a series of evolutionary models for continuous characters.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geiger&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
