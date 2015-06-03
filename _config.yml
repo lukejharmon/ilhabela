@@ -3,7 +3,7 @@ title:       Comparative methods in R - Ilhabela
 email:       lukeh@uidaho.edu
 author:      Luke Harmon
 description: "Materials for R course."
-baseurl:     ""
+baseurl:     "/ilhabela"
 url:         "http://lukejharmon.github.io/ilhabela"
 
 # Google analytics
