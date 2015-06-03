@@ -7,147 +7,231 @@
     <atom:link href="http://lukejharmon.github.io/ilhabela/ilhabela/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Hello, Pixyll</title>
-        <description>&lt;p&gt;Hello.&lt;/p&gt;
+        <title>Course logistics</title>
+        <description>&lt;h2 id=&quot;basic-course-information&quot;&gt;Basic course information&lt;/h2&gt;
 
-&lt;p&gt;Pixyll is a simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff. It&amp;rsquo;s mobile &lt;em&gt;first&lt;/em&gt;, fluidly responsive, and delightfully lightweight.&lt;/p&gt;
+&lt;p&gt;Hello students and TAs. This is the course website for Macroevolution in R 2015,
+taking place on Ilhabela from 1 to 6 July 2015.&lt;/p&gt;
 
-&lt;p&gt;It&amp;rsquo;s pretty minimal, but leverages large type and drastic contrast to make a statement, on all devices.&lt;/p&gt;
+&lt;p&gt;You should have already recieved information about traveling to Ilhabela and
+food and housing while you are there.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;
-    Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
-  &lt;/p&gt;
-  &lt;footer&gt;&lt;cite title=&quot;Antoine de Saint-Exupéry&quot;&gt;Antoine de Saint-Exupéry&lt;/cite&gt;&lt;/footer&gt;
+&lt;p&gt;We are not able to offer you any travel support to attend the course. However, as you know, the workshop is free of
+charge and we do offer the following: free shared accommodation (two students per room) at the &lt;a href=&quot;http://www.ilhaflat.com&quot;&gt;Hotel Ilha Flata&lt;/a&gt; in Ilhabela, Sao Paulo State, Brazil for Jul. 1-6; free breakfast, lunch, &amp;amp; coffee breaks
+every course day (Jul. 2, 3, 4, &amp;amp; 5); free dinner on one night (date TBD, probably Jul. 5); and, for those &amp;gt;
+attending the Evolution Conference in Guarujá, a free shuttle bus from the conference venue to Hotel Ilha Flat. If
+you are not attending Evolution you will be responsible for all your travel arrangements to and from Ihla Bela. All
+students will be responsible for their own travel arrangements home after the workshop.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;where-is-it?&quot;&gt;Where is it?&lt;/h2&gt;
+&lt;h2 id=&quot;code-resources&quot;&gt;Code resources&lt;/h2&gt;
 
-&lt;p&gt;Checkout the &lt;a href=&quot;https://github.com/johnotander/pixyll&quot;&gt;Github repository&lt;/a&gt; to download it, request a feature, or report a bug.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s free, and open source (&lt;a href=&quot;http://opensource.org/licenses/MIT&quot;&gt;MIT&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Checkout the class &lt;a href=&quot;https://github.com/lukejharmon/ilhabela&quot;&gt;Github repository&lt;/a&gt;, which will be updated over the next few weeks.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 11 Jun 2014 08:31:19 -0700</pubDate>
-        <link>http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/11/welcome-to-pixyll/</link>
-        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/11/welcome-to-pixyll/</guid>
+        <pubDate>Tue, 02 Jun 2015 00:00:00 -0700</pubDate>
+        <link>http://lukejharmon.github.io/ilhabela/ilhabela/information/2015/06/02/welcome-to-the-course/</link>
+        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/information/2015/06/02/welcome-to-the-course/</guid>
       </item>
     
       <item>
-        <title>Pixyll in Action</title>
-        <description>&lt;p&gt;There is a significant amount of subtle, yet precisely calibrated, styling to ensure
-that your content is emphasized while still looking aesthetically pleasing.&lt;/p&gt;
+        <title>Models of continuous character evolution</title>
+        <description>&lt;p&gt;Let&amp;rsquo;s fit some models of continuous character evolution. First, we will learn how to do some tests of &amp;ldquo;phylogenetic signal,&amp;rdquo; a very common test especially for ecological analyses. Then we will learn how to fit a series of evolutionary models for continuous characters.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geiger&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: ape
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;picante&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: vegan
+## Loading required package: permute
+## Loading required package: lattice
+## This is vegan 2.0-10
+## Loading required package: nlme
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;phytools&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: maps
+## Loading required package: rgl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: failed to assign RegisteredNativeSymbol for getData to getData
+## since getData is already defined in the &amp;#39;phangorn&amp;#39; namespace
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We will use the same anolis data and phylogenetic tree from previous exercises. If you don&amp;rsquo;t already have them, you can download the files from the following addresses:&lt;/p&gt;
 
-&lt;p&gt;All links are easy to &lt;a href=&quot;#&quot;&gt;locate and discern&lt;/a&gt;, yet don&amp;rsquo;t detract from the harmony
-of a paragraph. The &lt;em&gt;same&lt;/em&gt; goes for italics and &lt;strong&gt;bold&lt;/strong&gt; elements. Even the the strikeout
-works if &lt;del&gt;for some reason you need to update your post&lt;/del&gt;. For consistency&amp;rsquo;s sake,
-&lt;ins&gt;The same goes for insertions&lt;/ins&gt;, of course.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/0B9R4DAZPUvjiV2VhTUxOTlRuQUU/edit?usp=sharing&quot;&gt;anolisDataAppended.csv&lt;/a&gt; &lt;br&gt;
+&lt;a href=&quot;https://drive.google.com/file/d/0B9R4DAZPUvjiSkl1aFY2TkNMVFk/edit?usp=sharing&quot;&gt;anolis.phy&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;code,-with-syntax-highlighting&quot;&gt;Code, with syntax highlighting&lt;/h3&gt;
+&lt;p&gt;If you need to, make sure these files are in your working directory and read them in.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;anoleData &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;anolisDataAppended.csv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; row.names &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+anoleTree &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; read.tree&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;anolis.phy&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you have the data, then the following commands should work:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/cc1.png&quot; alt=&quot;plot&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;name.check&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleData&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;OK&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Let&amp;rsquo;s do the two main tests for phylogenetic signal using anole body size. The first test is Blomberg&amp;rsquo;s K, which compares the variance of PICs to what we would espect under a Brownian motion model. K = 1 means that relatives resemble one another as much as we should expect under BM; K &amp;lt; 1 means that there is less &amp;ldquo;phylogenetic signal&amp;rdquo; than expected under BM, while K &amp;gt; 1 means that there is more. A significant p-value returned from phylosignal tells you that there is significant phylogenetic signal - that is, close relatives are more similar than random pairs of species.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;anoleSize &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; anoleData&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rownames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleData&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+phylosignal&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleTree&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       K PIC.variance.obs PIC.variance.rnd.mean PIC.variance.P
+## 1 1.554           0.1389                 0.773          0.001
+##   PIC.variance.Z
+## 1         -3.913
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;phylosig&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;K&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; test &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $K
+## [1] 1.554
+##
+## $P
+## [1] 0.001
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Another method for testing phylogenetic signal is Pagel&amp;rsquo;s lambda. Lambda is a tree transformation that stretches tip branches relative to internal branches, making the tree more and more like a complete polytomy. If our estimated lambda = 0, then the traits are inferred to have no phylogenetic signal. Lambda = 1 corresponds to a Brownian motion model; 0 &amp;lt; lambda &amp;lt; 1 is in between.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# First let&amp;#39;s look at what lambda does&lt;/span&gt;
+anoleTreeLambda0 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; rescale&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;lambda&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+anoleTreeLambda5 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; rescale&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;lambda&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;p&gt;Code blocks use the &lt;a href=&quot;http://ethanschoonover.com/solarized&quot;&gt;solarized&lt;/a&gt; theme. Both the light and
-dark versions are included, so you can swap them out easily. &lt;em&gt;Solarized Dark&lt;/em&gt; is the default.&lt;/p&gt;
+par&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mfcol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTreeLambda5&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTreeLambda0&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/ilhabela/images/cc2.png&quot; alt=&quot;plot&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;phylosig&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;lambda&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; test &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $lambda
+## [1] 1.017
+##
+## $logL
+## [1] -3.81
+##
+## $logL0
+## [1] -60.02
+##
+## $P
+## [1] 2.893e-26
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lambdaModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;lambda&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: parallel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Parameter estimates appear at bounds:
+##  lambda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;brownianModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+nosigModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTreeLambda0&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Awesome&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EvenMoreAwesome&lt;/span&gt;
+lambdaModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 15.65
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;brownianModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 13.52
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nosigModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 124.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Conclusion: Brownian model is best, no signal model is terrible&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can use fitContinuous to fit OU and EB models as well.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;brownianModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+OUModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;OU&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+EBModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;EB&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-  &lt;span class=&quot;n&quot;&gt;validates_presence_of&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:something&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;validates&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;email_format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# inspect results&lt;/span&gt;
+brownianModel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## GEIGER-fitted comparative model of continuous data
+##  fitted &amp;#39;BM&amp;#39; model parameters:
+##  sigsq = 0.136160
+##  z0 = 4.065918
+##
+##  model summary:
+##  log-likelihood = -4.700404
+##  AIC = 13.400807
+##  AICc = 13.524519
+##  free parameters = 2
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 1.00
+##
+##  object summary:
+##  &amp;#39;lik&amp;#39; -- likelihood function
+##  &amp;#39;bnd&amp;#39; -- bounds for likelihood search
+##  &amp;#39;res&amp;#39; -- optimization iteration summary
+##  &amp;#39;opt&amp;#39; -- maximum likelihood parameter estimates
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;OUModel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## GEIGER-fitted comparative model of continuous data
+##  fitted &amp;#39;OU&amp;#39; model parameters:
+##  alpha = 0.000000
+##  sigsq = 0.136160
+##  z0 = 4.065918
+##
+##  model summary:
+##  log-likelihood = -4.700404
+##  AIC = 15.400807
+##  AICc = 15.650807
+##  free parameters = 3
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 0.76
+##
+##  object summary:
+##  &amp;#39;lik&amp;#39; -- likelihood function
+##  &amp;#39;bnd&amp;#39; -- bounds for likelihood search
+##  &amp;#39;res&amp;#39; -- optimization iteration summary
+##  &amp;#39;opt&amp;#39; -- maximum likelihood parameter estimates
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;EBModel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## GEIGER-fitted comparative model of continuous data
+##  fitted &amp;#39;EB&amp;#39; model parameters:
+##  a = -0.736271
+##  sigsq = 0.233528
+##  z0 = 4.066519
+##
+##  model summary:
+##  log-likelihood = -4.285970
+##  AIC = 14.571939
+##  AICc = 14.821939
+##  free parameters = 3
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 0.41
+##
+##  object summary:
+##  &amp;#39;lik&amp;#39; -- likelihood function
+##  &amp;#39;bnd&amp;#39; -- bounds for likelihood search
+##  &amp;#39;res&amp;#39; -- optimization iteration summary
+##  &amp;#39;opt&amp;#39; -- maximum likelihood parameter estimates
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# calculate AIC weights&lt;/span&gt;
+bmAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; brownianModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+ouAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; OUModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+ebAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; EBModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
 
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+aicc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bmAICC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ouAICC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ebAICC&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccD &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; aicc &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aicc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aw &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; aiccD&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccW &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; aw&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aw&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccW
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.5353 0.1849 0.2798
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It is important to realize that measurement error can bias your inferences with fitting these models towards OU. Fortunately, we can easily account for that in fitContinuous.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# We measured 20 anoles per species, and the standard deviation within each&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# species was, on average, 0.05&lt;/span&gt;
+seSize &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;h1 id=&quot;headings!&quot;&gt;Headings!&lt;/h1&gt;
+&lt;span class=&quot;c1&quot;&gt;# redo with measurement error&lt;/span&gt;
+brownianModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; SE &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+OUModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;OU&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; SE &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+EBModel &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fitContinuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;anoleTree&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; anoleSize&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; model &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;EB&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; SE &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seSize&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;p&gt;They&amp;rsquo;re responsive, and well-proportioned (in &lt;code&gt;padding&lt;/code&gt;, &lt;code&gt;line-height&lt;/code&gt;, &lt;code&gt;margin&lt;/code&gt;, and &lt;code&gt;font-size&lt;/code&gt;).
-They also heavily rely on the awesome utility, &lt;a href=&quot;http://www.basscss.com/&quot;&gt;BASSCSS&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h5 id=&quot;they-draw-the-perfect-amount-of-attention&quot;&gt;They draw the perfect amount of attention&lt;/h5&gt;
+&lt;span class=&quot;c1&quot;&gt;# calculate AIC weights&lt;/span&gt;
+bmAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; brownianModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+ouAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; OUModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
+ebAICC &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; EBModel&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;opt&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;aicc
 
-&lt;p&gt;This allows your content to have the proper informational and contextual hierarchy. Yay.&lt;/p&gt;
-
-&lt;h3 id=&quot;there-are-lists,-too&quot;&gt;There are lists, too&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Apples&lt;/li&gt;
-&lt;li&gt;Oranges&lt;/li&gt;
-&lt;li&gt;Potatoes&lt;/li&gt;
-&lt;li&gt;Milk&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Mow the lawn&lt;/li&gt;
-&lt;li&gt;Feed the dog&lt;/li&gt;
-&lt;li&gt;Dance&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;images-look-great,-too&quot;&gt;Images look great, too&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/1424573/3378137/abac6d7c-fbe6-11e3-8e09-55745b6a8176.png&quot; alt=&quot;desk&quot;&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;there-are-also-pretty-colors&quot;&gt;There are also pretty colors&lt;/h3&gt;
-
-&lt;p&gt;Also the result of &lt;a href=&quot;http://www.basscss.com/&quot;&gt;BASSCSS&lt;/a&gt;, you can &lt;span class=&quot;bg-dark-gray white&quot;&gt;highlight&lt;/span&gt; certain components
-of a &lt;span class=&quot;red&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;mid-gray&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;green&quot;&gt;CSS&lt;/span&gt; &lt;span class=&quot;orange&quot;&gt;classes&lt;/span&gt;.&lt;/p&gt;
-
-&lt;p&gt;I don&amp;rsquo;t recommend using blue, though. It looks like a &lt;span class=&quot;blue&quot;&gt;link&lt;/span&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;stylish-blockquotes-included&quot;&gt;Stylish blockquotes included&lt;/h3&gt;
-
-&lt;p&gt;You can use the markdown quote syntax, &lt;code&gt;&amp;gt;&lt;/code&gt; for simple quotes.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis porta mauris.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;However, you need to inject html if you&amp;rsquo;d like a citation footer. I will be working on a way to
-hopefully sidestep this inconvenience.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;
-    Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
-  &lt;/p&gt;
-  &lt;footer&gt;&lt;cite title=&quot;Antoine de Saint-Exupéry&quot;&gt;Antoine de Saint-Exupéry&lt;/cite&gt;&lt;/footer&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;there&amp;#39;s-more-being-added-all-the-time&quot;&gt;There&amp;rsquo;s more being added all the time&lt;/h3&gt;
-
-&lt;p&gt;Checkout the &lt;a href=&quot;https://github.com/johnotander/pixyll&quot;&gt;Github repository&lt;/a&gt; to request,
-or add, features.&lt;/p&gt;
-
-&lt;p&gt;Happy writing.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 10 Jun 2014 05:31:19 -0700</pubDate>
-        <link>http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</link>
-        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</guid>
-      </item>
-    
-      <item>
-        <title>So, What is Jekyll?</title>
-        <description>&lt;p&gt;Jekyll is a tool for transforming your plain text into static websites and 
-blogs. It is simple, static, and blog-aware. Jekyll uses the 
-&lt;a href=&quot;http://docs.shopify.com/themes/liquid-basics&quot;&gt;Liquid&lt;/a&gt; templating
-language and has builtin &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;
-and &lt;a href=&quot;http://en.wikipedia.org/wiki/Textile_(markup_language)&quot;&gt;Textile&lt;/a&gt; support.&lt;/p&gt;
-
-&lt;p&gt;It also ties in nicely to &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Learn more about Jekyll on their &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 09 Jun 2014 05:32:18 -0700</pubDate>
-        <link>http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/09/so-what-is-jekyll/</link>
-        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/09/so-what-is-jekyll/</guid>
-      </item>
-    
-      <item>
-        <title>Pixyll has Pagination</title>
-        <description>&lt;p&gt;This is an empty post to illustrate the pagination component with Pixyll.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 08 Jun 2014 04:21:29 -0700</pubDate>
-        <link>http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/08/pixyll-has-pagination/</link>
-        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/jekyll/pixyll/2014/06/08/pixyll-has-pagination/</guid>
+aicc &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bmAICC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ouAICC&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ebAICC&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccD &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; aicc &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aicc&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aw &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; aiccD&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccW &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; aw&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aw&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aiccW
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.5346 0.1846 0.2808
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        <pubDate>Tue, 02 Jun 2015 00:00:00 -0700</pubDate>
+        <link>http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/06/02/ContinuousModels/</link>
+        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/06/02/ContinuousModels/</guid>
       </item>
     
   </channel>

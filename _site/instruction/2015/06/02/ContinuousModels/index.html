@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Models of continuous character evolution &#8211; Comparative methods in R - Ilhabela</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="fit a series of evolutionary models for continuous characters.">
+    <meta name="author" content="Luke Harmon">
+    <meta name="keywords" content="instruction">
+    <link rel="canonical" href="http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/06/02/ContinuousModels/">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/ilhabela/css/pixyll.css" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Models of continuous character evolution">
+    <meta property="og:description" content="Materials for R course.">
+    <meta property="og:url" content="http://lukejharmon.github.io/ilhabela/instruction/2015/06/02/ContinuousModels/">
+    <meta property="og:site_name" content="Comparative methods in R - Ilhabela">
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        
+    
+</head>
+
+<body class="">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://lukejharmon.github.io/ilhabela" class="site-title">Comparative methods in R - Ilhabela</a>
+      <nav class="site-nav right">
+        <a href="/ilhabela/about/">About</a>
+<a href="/ilhabela/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Models of continuous character evolution</h1>
+  <span class="post-meta">Jun 2, 2015</span><br>
+  
+  <span class="post-meta small">7 minute read</span>
+</div>
+
+<article class="post-content">
+  <p>Let&rsquo;s fit some models of continuous character evolution. First, we will learn how to do some tests of &ldquo;phylogenetic signal,&rdquo; a very common test especially for ecological analyses. Then we will learn how to fit a series of evolutionary models for continuous characters.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>geiger<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Loading required package: ape
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>picante<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Loading required package: vegan
+## Loading required package: permute
+## Loading required package: lattice
+## This is vegan 2.0-10
+## Loading required package: nlme
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>phytools<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Loading required package: maps
+## Loading required package: rgl
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Warning: failed to assign RegisteredNativeSymbol for getData to getData
+## since getData is already defined in the &#39;phangorn&#39; namespace
+</code></pre></div>
+<p>We will use the same anolis data and phylogenetic tree from previous exercises. If you don&rsquo;t already have them, you can download the files from the following addresses:</p>
+
+<p><a href="https://drive.google.com/file/d/0B9R4DAZPUvjiV2VhTUxOTlRuQUU/edit?usp=sharing">anolisDataAppended.csv</a> <br>
+<a href="https://drive.google.com/file/d/0B9R4DAZPUvjiSkl1aFY2TkNMVFk/edit?usp=sharing">anolis.phy</a></p>
+
+<p>If you need to, make sure these files are in your working directory and read them in.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">anoleData <span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;anolisDataAppended.csv&quot;</span><span class="p">,</span> row.names <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+anoleTree <span class="o">&lt;-</span> read.tree<span class="p">(</span><span class="s">&quot;anolis.phy&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>If you have the data, then the following commands should work:</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">plot<span class="p">(</span>anoleTree<span class="p">)</span>
+</code></pre></div>
+<p><img src="/ilhabela/images/cc1.png" alt="plot"></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">name.check<span class="p">(</span>anoleTree<span class="p">,</span> anoleData<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;OK&quot;
+</code></pre></div>
+<p>Let&rsquo;s do the two main tests for phylogenetic signal using anole body size. The first test is Blomberg&rsquo;s K, which compares the variance of PICs to what we would espect under a Brownian motion model. K = 1 means that relatives resemble one another as much as we should expect under BM; K &lt; 1 means that there is less &ldquo;phylogenetic signal&rdquo; than expected under BM, while K &gt; 1 means that there is more. A significant p-value returned from phylosignal tells you that there is significant phylogenetic signal - that is, close relatives are more similar than random pairs of species.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">anoleSize <span class="o">&lt;-</span> anoleData<span class="p">[,</span> <span class="m">1</span><span class="p">]</span>
+<span class="kp">names</span><span class="p">(</span>anoleSize<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">rownames</span><span class="p">(</span>anoleData<span class="p">)</span>
+phylosignal<span class="p">(</span>anoleSize<span class="p">,</span> anoleTree<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##       K PIC.variance.obs PIC.variance.rnd.mean PIC.variance.P
+## 1 1.554           0.1389                 0.773          0.001
+##   PIC.variance.Z
+## 1         -3.913
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">phylosig<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;K&quot;</span><span class="p">,</span> test <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## $K
+## [1] 1.554
+##
+## $P
+## [1] 0.001
+</code></pre></div>
+<p>Another method for testing phylogenetic signal is Pagel&rsquo;s lambda. Lambda is a tree transformation that stretches tip branches relative to internal branches, making the tree more and more like a complete polytomy. If our estimated lambda = 0, then the traits are inferred to have no phylogenetic signal. Lambda = 1 corresponds to a Brownian motion model; 0 &lt; lambda &lt; 1 is in between.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># First let&#39;s look at what lambda does</span>
+anoleTreeLambda0 <span class="o">&lt;-</span> rescale<span class="p">(</span>anoleTree<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;lambda&quot;</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+anoleTreeLambda5 <span class="o">&lt;-</span> rescale<span class="p">(</span>anoleTree<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;lambda&quot;</span><span class="p">,</span> <span class="m">0.5</span><span class="p">)</span>
+
+par<span class="p">(</span>mfcol <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">))</span>
+plot<span class="p">(</span>anoleTree<span class="p">)</span>
+plot<span class="p">(</span>anoleTreeLambda5<span class="p">)</span>
+plot<span class="p">(</span>anoleTreeLambda0<span class="p">)</span>
+</code></pre></div>
+<p><img src="/ilhabela/images/cc2.png" alt="plot"></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">phylosig<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;lambda&quot;</span><span class="p">,</span> test <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## $lambda
+## [1] 1.017
+##
+## $logL
+## [1] -3.81
+##
+## $logL0
+## [1] -60.02
+##
+## $P
+## [1] 2.893e-26
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">lambdaModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;lambda&quot;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Loading required package: parallel
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Parameter estimates appear at bounds:
+##  lambda
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">brownianModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">)</span>
+nosigModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTreeLambda0<span class="p">,</span> anoleSize<span class="p">)</span>
+
+lambdaModel<span class="o">$</span>opt<span class="o">$</span>aicc
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 15.65
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">brownianModel<span class="o">$</span>opt<span class="o">$</span>aicc
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 13.52
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">nosigModel<span class="o">$</span>opt<span class="o">$</span>aicc
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 124.2
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Conclusion: Brownian model is best, no signal model is terrible</span>
+</code></pre></div>
+<p>We can use fitContinuous to fit OU and EB models as well.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">brownianModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">)</span>
+OUModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;OU&quot;</span><span class="p">)</span>
+EBModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;EB&quot;</span><span class="p">)</span>
+
+<span class="c1"># inspect results</span>
+brownianModel
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## GEIGER-fitted comparative model of continuous data
+##  fitted &#39;BM&#39; model parameters:
+##  sigsq = 0.136160
+##  z0 = 4.065918
+##
+##  model summary:
+##  log-likelihood = -4.700404
+##  AIC = 13.400807
+##  AICc = 13.524519
+##  free parameters = 2
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 1.00
+##
+##  object summary:
+##  &#39;lik&#39; -- likelihood function
+##  &#39;bnd&#39; -- bounds for likelihood search
+##  &#39;res&#39; -- optimization iteration summary
+##  &#39;opt&#39; -- maximum likelihood parameter estimates
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">OUModel
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## GEIGER-fitted comparative model of continuous data
+##  fitted &#39;OU&#39; model parameters:
+##  alpha = 0.000000
+##  sigsq = 0.136160
+##  z0 = 4.065918
+##
+##  model summary:
+##  log-likelihood = -4.700404
+##  AIC = 15.400807
+##  AICc = 15.650807
+##  free parameters = 3
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 0.76
+##
+##  object summary:
+##  &#39;lik&#39; -- likelihood function
+##  &#39;bnd&#39; -- bounds for likelihood search
+##  &#39;res&#39; -- optimization iteration summary
+##  &#39;opt&#39; -- maximum likelihood parameter estimates
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">EBModel
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## GEIGER-fitted comparative model of continuous data
+##  fitted &#39;EB&#39; model parameters:
+##  a = -0.736271
+##  sigsq = 0.233528
+##  z0 = 4.066519
+##
+##  model summary:
+##  log-likelihood = -4.285970
+##  AIC = 14.571939
+##  AICc = 14.821939
+##  free parameters = 3
+##
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  frequency of best fit = 0.41
+##
+##  object summary:
+##  &#39;lik&#39; -- likelihood function
+##  &#39;bnd&#39; -- bounds for likelihood search
+##  &#39;res&#39; -- optimization iteration summary
+##  &#39;opt&#39; -- maximum likelihood parameter estimates
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># calculate AIC weights</span>
+bmAICC <span class="o">&lt;-</span> brownianModel<span class="o">$</span>opt<span class="o">$</span>aicc
+ouAICC <span class="o">&lt;-</span> OUModel<span class="o">$</span>opt<span class="o">$</span>aicc
+ebAICC <span class="o">&lt;-</span> EBModel<span class="o">$</span>opt<span class="o">$</span>aicc
+
+aicc <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>bmAICC<span class="p">,</span> ouAICC<span class="p">,</span> ebAICC<span class="p">)</span>
+aiccD <span class="o">&lt;-</span> aicc <span class="o">-</span> <span class="kp">min</span><span class="p">(</span>aicc<span class="p">)</span>
+aw <span class="o">&lt;-</span> <span class="kp">exp</span><span class="p">(</span><span class="m">-0.5</span> <span class="o">*</span> aiccD<span class="p">)</span>
+aiccW <span class="o">&lt;-</span> aw<span class="o">/</span><span class="kp">sum</span><span class="p">(</span>aw<span class="p">)</span>
+aiccW
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.5353 0.1849 0.2798
+</code></pre></div>
+<p>It is important to realize that measurement error can bias your inferences with fitting these models towards OU. Fortunately, we can easily account for that in fitContinuous.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># We measured 20 anoles per species, and the standard deviation within each</span>
+<span class="c1"># species was, on average, 0.05</span>
+seSize <span class="o">&lt;-</span> <span class="m">0.05</span><span class="o">/</span><span class="kp">sqrt</span><span class="p">(</span><span class="m">20</span><span class="p">)</span>
+
+<span class="c1"># redo with measurement error</span>
+brownianModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> SE <span class="o">=</span> seSize<span class="p">)</span>
+OUModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;OU&quot;</span><span class="p">,</span> SE <span class="o">=</span> seSize<span class="p">)</span>
+EBModel <span class="o">&lt;-</span> fitContinuous<span class="p">(</span>anoleTree<span class="p">,</span> anoleSize<span class="p">,</span> model <span class="o">=</span> <span class="s">&quot;EB&quot;</span><span class="p">,</span> SE <span class="o">=</span> seSize<span class="p">)</span>
+
+
+<span class="c1"># calculate AIC weights</span>
+bmAICC <span class="o">&lt;-</span> brownianModel<span class="o">$</span>opt<span class="o">$</span>aicc
+ouAICC <span class="o">&lt;-</span> OUModel<span class="o">$</span>opt<span class="o">$</span>aicc
+ebAICC <span class="o">&lt;-</span> EBModel<span class="o">$</span>opt<span class="o">$</span>aicc
+
+aicc <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span>bmAICC<span class="p">,</span> ouAICC<span class="p">,</span> ebAICC<span class="p">)</span>
+aiccD <span class="o">&lt;-</span> aicc <span class="o">-</span> <span class="kp">min</span><span class="p">(</span>aicc<span class="p">)</span>
+aw <span class="o">&lt;-</span> <span class="kp">exp</span><span class="p">(</span><span class="m">-0.5</span> <span class="o">*</span> aiccD<span class="p">)</span>
+aiccW <span class="o">&lt;-</span> aw<span class="o">/</span><span class="kp">sum</span><span class="p">(</span>aw<span class="p">)</span>
+aiccW
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.5346 0.1846 0.2808
+</code></pre></div>
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        Crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+        &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      </small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
