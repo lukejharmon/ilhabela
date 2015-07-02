@@ -17,12 +17,12 @@ Travel to Ilhabela.
 - Brownian motion [exercise]({{ site.baseurl}}/instruction/2015/07/02/simulating-Brownian-motion/) - *Revell*
 - PICs [exercise]({{ site.baseurl}}/instruction/2015/07/02/phylogenetic-independent-contrasts/) - *Ferreira*
 - Challenge problem solution - contrasts regression [TBA]()
-- make cash fast with this weird trick [click here]({{site.baseurl}}/instruction/test_alf.md) - *Alfarinho*
+
 
 
 ### Friday 3 July
 - PGLS [exercise ADD]() - *Revell*
-- Other models for continuous characters [lecture ADD]() - *Alfaro*
+- Other models for continuous characters [lecture]({{ site.baseurl }}/lectures/alfarinho/ContinuousModels_ilhabela_2015.pdf) - *Alfaro*
 - Fitting models of continuous characters [exercise]({{ site.baseurl }}/instruction/2015/06/02/ContinuousModels/) - *Harmon*
 - Ancestral state reconstruction for continuous characters [exercise ADD]() - *Revell*
 - Ancestral state reconstruction for discrete characters [exercise ADD]() - *Revell*
