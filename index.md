@@ -16,7 +16,7 @@ Travel to Ilhabela.
 - Brownian motion and PICs [lecture]({{ site.baseurl }}/assets/BMIntro_2015_v1.pdf) - *Harmon*
 - PICs [exercise]({{ site.baseurl}}/instruction/2015/07/02/phylogenetic-independent-contrasts/) - *Ferreira*
 - Challenge problem solution - contrasts regression [TBA]()
-- make cash fast with this weird trick [click here]({{site.baseurl}}/)
+- make cash fast with this weird trick [click here]({{site.baseurl}}/instruction/test_alf.md) - *Alfarinho*
 
 ### Friday 3 July
 - PGLS [exercise ADD]() - *Revell*
