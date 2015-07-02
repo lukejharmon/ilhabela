@@ -1,0 +1,47 @@
+Anole Solution
+========================================================
+
+This is the solution to the anole BiSSe challenge.
+
+```{r fig.width=7, fig.height=6}
+
+library(ape)
+library(TreeSim)
+library(diversitree)
+library(laser)
+
+anoleData<-read.csv("~/Documents/teaching/revellClass/2014bogota/continuousModels/anolisDataAppended.csv", row.names=1)
+anoleTree<-read.tree("~/Documents/teaching/revellClass/2014bogota/continuousModels/anolis.phy")
+
+ecomorph<-anoleData[,"ecomorph"]
+names(ecomorph)<-rownames(anoleData)
+
+isTG<-as.numeric(ecomorph=="TG")
+names(isTG)<-names(ecomorph)
+
+bisseModel<-make.bisse(anoleTree, isTG)
+p<-starting.point.bisse(anoleTree)
+bisseMLFit<-find.mle(bisseModel, p)
+
+# we can test a constrained model where the character does not affect diversification rates
+
+cBisseModel<-constrain(bisseModel, lambda1~lambda0)
+cBisseModel<-constrain(cBisseModel, mu1~mu0)
+
+cbMLFit<-find.mle(cBisseModel, p[c(-1, -3)])
+
+# compare models
+
+anova(bisseMLFit, constrained=cbMLFit)
+
+prior<-make.prior.exponential(1/(2*2))
+
+mcmcRun<-mcmc(bisseModel, bisseMLFit$par, nsteps=1000, prior=prior, w=0.1, print.every=100)
+
+col<-c("blue", "red")
+profiles.plot(mcmcRun[,c("lambda0", "lambda1")], col.line=col, las=1, legend="topright")
+profiles.plot(mcmcRun[,c("mu0", "mu1")], col.line=col, las=1, legend="topright")
+
+
+
+```

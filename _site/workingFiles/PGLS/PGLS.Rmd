@@ -1,0 +1,113 @@
+Phylogenetic Generalized Least Squares (PGLS)
+========================================================
+
+In this exercise we will learn how to do analyses using PGLS. 
+
+First, we will need a few libraries installed.
+
+```{r}
+library(ape)
+library(geiger)
+library(nlme)
+library(phytools)
+```
+
+Second, we will need some data. We can read in anolis data and a phylogenetic tree. You can download the files from the following addresses:
+
+<a href="https://drive.google.com/file/d/0B9R4DAZPUvjiV2VhTUxOTlRuQUU/edit?usp=sharing">anolisDataAppended.csv</a> <br>
+<a href="https://drive.google.com/file/d/0B9R4DAZPUvjiSkl1aFY2TkNMVFk/edit?usp=sharing">anolis.phy</a>
+
+Download these files and place them in your working directory.
+
+```{r}
+anoleData<-read.csv("anolisDataAppended.csv", row.names=1)
+anoleTree<-read.tree("anolis.phy")
+```
+
+Let's see what this tree looks like.
+
+```{r fig.width=7, fig.height=6}
+plot(anoleTree)
+```
+
+Geiger has a function to check that the names match between the tree and the data frame.
+
+```{r}
+name.check(anoleTree, anoleData)
+```
+
+Is there a correlation between awesomeness and hostility?
+
+```{r fig.width=7, fig.height=6}
+plot(anoleData[,c("awesomeness", "hostility")])
+```
+
+It certainly looks like there is. We can do this analysis easily with PICs, as you just learned:
+
+```{r fig.width=7, fig.height=6}
+# Extract columns
+host<-anoleData[,"hostility"]
+awe<-anoleData[,"awesomeness"]
+
+# Give them names
+names(host)<-names(awe)<-rownames(anoleData)
+
+# Calculate PICs
+hPic<-pic(host, anoleTree)
+aPic<-pic(awe, anoleTree)
+
+# Make a model
+picModel<-lm(hPic~aPic-1)
+
+# Yes, significant
+summary(picModel)
+
+# plot results
+plot(hPic~aPic)
+abline(a=0, b=coef(picModel))
+```
+
+This whole procedure can be carried out more simply using PGLS.
+
+```{r fig.width=7, fig.height=6}
+pglsModel<-gls(hostility~awesomeness, correlation=corBrownian(phy=anoleTree), data=anoleData, method="ML")
+summary(pglsModel)
+coef(pglsModel)
+plot(host~awe)
+abline(a=coef(pglsModel)[1], b=coef(pglsModel)[2])
+```
+
+But PGLS is WAY more flexible than PICs. For example, we can include a discrete predictor:
+
+```{r}
+pglsModel2<-gls(hostility~ecomorph, correlation=corBrownian(phy=anoleTree), data=anoleData, method="ML")
+anova(pglsModel2)
+coef(pglsModel2)
+```
+
+We can even include multiple predictors:
+
+```{r}
+pglsModel3<-gls(hostility~ecomorph*awesomeness, correlation=corBrownian(phy=anoleTree), data=anoleData, method="ML")
+anova(pglsModel3)
+```
+
+We can also assume that the error structure follows an OU model rather than Brownian motion:
+
+```{r}
+
+# Does not converge - and this is difficult to fix!
+pglsModelLambda<-gls(hostility~awesomeness, correlation=corPagel(1, phy=anoleTree, fixed=FALSE), data=anoleData, method="ML")
+
+# this is a problem with scale. We can do a quick fix by making the branch lengths longer. This will not affect the analysis other than rescaling a nuisance parameter
+tempTree<-anoleTree
+tempTree$edge.length<-tempTree$edge.length * 100
+pglsModelLambda<-gls(hostility~awesomeness, correlation=corPagel(1, phy=tempTree, fixed=FALSE), data=anoleData, method="ML")
+summary(pglsModelLambda)
+
+pglsModelOU<-gls(hostility~awesomeness, correlation=corMartins(1, phy=tempTree), data=anoleData, method="ML")
+summary(pglsModelOU)
+
+```
+
+

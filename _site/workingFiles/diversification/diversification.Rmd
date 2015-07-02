@@ -1,0 +1,242 @@
+Diversification models
+========================================================
+
+We will now study diversification models, including birth-death models and models where diversification rates depend on characters.
+
+<h1> Diversification models </h1>
+
+We can start by considering a very simple model, the pure-birth model. Under a pure-birth model, lineages accumulate by speciation (there is no extinction) at a constant per-lineage rate lambda.
+
+```{r fig.width=7, fig.height=6}
+library(ape)
+library(TreeSim)
+library(diversitree)
+library(laser)
+
+# We can use TreeSim to simulate a tree under a pure birth model
+# we will use TreeSim and, for now, simulate trees of a fixed age (but varying numbers of taxa)
+
+simTree1<-sim.bd.age(age=10, numbsim=1, lambda=0.4, mu=0)[[1]] 
+plot(simTree1)
+
+# notice that if we repeat this command we get a different tree
+
+simTree2<-sim.bd.age(age=10, numbsim=1, lambda=0.4, mu=0)[[1]]
+plot(simTree2)
+
+# the pattern of lineage accumulation through time for a tree can be visualized with a 
+# Lineage-through-time plot
+
+ltt.plot(simTree1)
+# ok - but we should always log the y-axis for ltt plots
+ltt.plot(simTree1, log="y")
+
+ltt.plot(simTree2, log="y")
+
+# What is the distribution of tree size under a pure-birth model?
+ntips<-numeric(1000)
+for(i in 1:1000) {
+  st<-sim.bd.age(age=10, numbsim=1, lambda=0.4, mu=0)[[1]]
+  # rarely, there will be only one tip, and the function will return "1"
+  if(length(st)==1) ntips[i]<-1 else ntips[i]<-length(st$tip.label)
+}
+
+hist(ntips)
+```
+
+It is worth showing the shape of LTT plots under a pure-birth model. To simplify this, we can fix both the age of the clade and the number of taxa. To make this work with TreeSim, we should choose a value of lambda that satisfies the expected relationship under a pure-birth model, E[n(t)] = 2 exp(lambda * t). So if we choose t = 10 and lambda = 0.4, as above, then E[N(t)] = 2 exp(0.4 * 10) = about 109 tips.
+
+
+```{r fig.width=7, fig.height=6}
+
+allTheTrees<-sim.bd.taxa.age(n=109, numbsim=1000, lambda=0.4, mu=0, age=10, mrca=T)
+
+ltt.plot(allTheTrees[[1]], log="y")
+for(i in 2:1000) {
+  ltt.lines(allTheTrees[[i]])
+}
+
+```
+
+So, under a pure-birth model, we expect the lineage-through-time plot to be linear on a log scale. What if we add extinction?
+
+```{r fig.width=7, fig.height=6}
+
+allTheTrees2<-sim.bd.taxa.age(n=109, numbsim=1000, lambda=2.0, mu=1.6, age=10, mrca=T)
+
+ltt.plot(allTheTrees2[[1]], log="y")
+for(i in 2:1000) {
+  ltt.lines(allTheTrees2[[i]])
+}
+
+```
+
+Extinction leaves a signature in the shape of phylogenetic trees. We can see that in the lineage-through-time plot, which bends up towards the present day. We can also see this in the trees themselves:
+
+```{r fig.width=7, fig.height=6}
+
+simTree1<-sim.bd.taxa.age(n=109, age=10, numbsim=1, lambda=0.4, mu=0)[[1]] 
+simTree2<-sim.bd.taxa.age(n=109, age=10, numbsim=1, lambda=2.0, mu=1.6)[[1]] 
+
+par(mfcol=c(1,2))
+plot(simTree1, main="Pure Birth")
+plot(simTree2, main="Birth-death")
+
+```
+
+One important thing to keep in mind with diversification rate analysis is that sampling can be critical. To see why, let's use simulations of partially sampled data:
+
+```{r fig.width=7, fig.height=6}
+
+simTree1<-sim.bd.taxa.age(n=109, age=10, numbsim=1, lambda=0.4, mu=0)[[1]] 
+simTree2<-sim.bd.taxa.age(n=50, age=10, numbsim=1, lambda=0.4, mu=0, frac=50/109)[[1]] 
+
+par(mfcol=c(1,2))
+plot(simTree1, main="Fully sampled")
+plot(simTree2, main="Partially sampled")
+```
+
+```{r fig.width=7, fig.height=6}
+# what is the general pattern?
+
+allTheTrees3<-sim.bd.taxa.age(n=50, numbsim=1000, lambda=0.4, mu=0, age=10, mrca=T, frac=50/109)
+plot.new()
+ltt.plot(allTheTrees3[[1]], log="y")
+for(i in 2:1000) {
+  ltt.lines(allTheTrees3[[i]])
+}
+
+```
+
+<h1> Estimating speciation and extinction rates </h1>
+
+We can estimate speciation and extinction rates from phylogenetic trees by fitting the models described above, pure-birth and birth-death. We will use diversitree so that we can start to figure out how it works.
+
+```{r fig.width=7, fig.height=6}
+
+simTree1<-sim.bd.age(age=10, numbsim=1, lambda=0.4, mu=0)[[1]] 
+
+# first fit a Yule model
+pbModel<-make.yule(simTree1)
+pbMLFit<-find.mle(pbModel, 0.1)
+
+# next fit a Birth-death model
+bdModel<-make.bd(simTree1)
+bdMLFit<-find.mle(bdModel, c(0.1, 0.05), method="optim", lower=0)
+
+# compare models
+anova(bdMLFit, pure.birth=pbMLFit)
+
+
+
+```
+
+The beauty of diversitree is that we can very easily run a Bayesian analysis of diversification rates. 
+
+```{r fig.width=7, fig.height=6}
+
+bdSamples <- mcmc(bdModel, bdMLFit$par, nsteps=100000, lower=c(0, 0), upper=c(Inf, Inf), w=c(0.1, 0.1), fail.value=-Inf, print.every=10000)
+
+postSamples<-bdSamples[c("lambda", "mu")]
+profiles.plot(postSamples, col.line=c("red", "blue"), las=1, legend="topright")
+
+# often estimates of r (= lambda-mu) are more precise than either lambda and mu
+postSamples$r<-with(bdSamples, lambda-mu)
+postSamples$eps<-with(bdSamples, mu/lambda)
+
+profiles.plot(postSamples[,c("r", "eps")], col.line=c("red", "blue"), las=1, legend="topright")
+
+```
+
+<h1> Testing for slowdowns </h1>
+
+We can test for slowdowns in the rate of diversification through time using both Pybus and Harvey's gamma - a very common test in the literature - and likelihood using Rabosky's approach.
+
+We can start with gamma:
+
+```{r fig.width=7, fig.height=6}
+
+# let's try our simulated tree
+gs<-gammaStat(simTree1)
+mccrResult<-mccrTest(CladeSize=length(simTree1$tip.label), NumberMissing=0, NumberOfReps=1000, ObservedGamma=gs)
+
+# now let's try the anole tree. This tree is incomplete, so we have to account for that.
+gsAnole<-gammaStat(anoleTree)
+mccrResultAnole<-mccrTest(CladeSize=length(anoleTree$tip.label), NumberMissing=70, NumberOfReps=1000, ObservedGamma=gsAnole)
+
+# we can use likelihood to compare a set of models for diversification. This REQUIRES a complete tree, which we do not have - so these results are incorrect
+
+anoleBTimes<-sort(branching.times(anoleTree), decreasing=T)
+fitdAICrc(anoleBTimes, modelset = c("pureBirth", "bd", "DDX", "DDL", "yule2rate"), ints = 100)
+
+ ```
+
+<h1> Relating diversification rates to character state </h1>
+
+We can test for a relationship between character state and diversification rates using BiSSE (and related approaches). The syntax for BiSSE is consistent with other aspects of diversitree that we learned above. We will try this with anole ecomorph data. BiSSE can only handle binary traits, so we will have to change our data over to a binary (0-1) character.
+
+```{r fig.width=7, fig.height=6}
+
+# let's try a simulated data set to see if we can really detect a true effect
+
+simPars<-c(0.4, 0.2, 0.05, 0.05, 0.05, 0.05)
+set.seed(3)
+simBisseData<-tree.bisse(simPars, max.t=14, x0=0)
+
+hist<-history.from.sim.discrete(simBisseData, 0:1)
+plot(hist, simBisseData)
+
+nbModel<-make.bisse(simBisseData, simBisseData$tip.state)
+p<-starting.point.bisse(simBisseData)
+nbModelMLFit<-find.mle(nbModel, p)
+
+rbind(real=simPars, estimated=round(coef(nbModelMLFit), 2))
+
+# we can test a constrained model where the character does not affect diversification rates
+
+cnbModel<-constrain(nbModel, lambda1~lambda0)
+cnbModel<-constrain(cnbModel, mu1~mu0)
+
+cnbModelMLFit<-find.mle(cnbModel, p[c(-1, -3)])
+
+# compare models
+
+anova(nbModelMLFit, constrained=cnbModelMLFit)
+
+# let's try a Bayesian analysis
+
+prior<-make.prior.exponential(1/(2*0.4))
+
+# this is not long enough but ok for now. You might want more like 1000000 generations.
+mcmcRun<-mcmc(nbModel, nbModelMLFit$par, nsteps=1000, prior=prior, w=0.1, print.every=100)
+
+col<-c("blue", "red")
+profiles.plot(mcmcRun[,c("lambda0", "lambda1")], col.line=col, las=1, legend="topright")
+profiles.plot(mcmcRun[,c("mu0", "mu1")], col.line=col, las=1, legend="topright")
+
+# looks like speciation rate differs, but not extinction. can we confirm?
+sum(mcmcRun$lambda0 > mcmcRun$lambda1)/length(mcmcRun$lambda1)
+sum(mcmcRun$mu0 > mcmcRun$mu1)/length(mcmcRun$mu1)
+
+```
+
+<h1> Challenge problem </h1>
+
+Repeat the above analyses with anoles (using the trait below). Fit a BiSSE model using both ML and Bayesian methods. What do you conclude?
+
+You need a binary trait, so use the following:
+
+```{r fig.width=7, fig.height=6}
+
+
+anoleData<-read.csv("~/Documents/teaching/revellClass/2014bogota/continuousModels/anolisDataAppended.csv", row.names=1)
+anoleTree<-read.tree("~/Documents/teaching/revellClass/2014bogota/continuousModels/anolis.phy")
+
+ecomorph<-anoleData[,"ecomorph"]
+names(ecomorph)<-rownames(anoleData)
+
+isTG<-as.numeric(ecomorph=="TG")
+names(isTG)<-names(ecomorph)
+isTG
+
+```
