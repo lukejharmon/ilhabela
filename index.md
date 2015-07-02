@@ -6,6 +6,8 @@ layout: default
 <a href="http://commons.wikimedia.org/wiki/File:Ilhabela_Mar2005_001.jpg#/media/File:Ilhabela_Mar2005_001.jpg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Ilhabela_Mar2005_001.jpg/1200px-Ilhabela_Mar2005_001.jpg" alt="View of Pereque Beach from ferry-boat"></a><br>"<a href="http://commons.wikimedia.org/wiki/File:Ilhabela_Mar2005_001.jpg#/media/File:Ilhabela_Mar2005_001.jpg">Ilhabela Mar2005 001</a>" by Guilherme Cinini <a href="//en.wikipedia.org/wiki/User:Gcinini" class="extiw" title="en:User:Gcinini">en:User:Gcinini</a> - english wikipedia. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.</p>
 </font>
 
+[Post index]({{ site.baseurl }}/postIndex/)
+
 ### Wednesday 1 July
 Travel to Ilhabela.
 

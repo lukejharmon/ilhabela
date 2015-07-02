@@ -1,12 +1,11 @@
 ---
 layout: page
-title: Post index
+title: All posts in the course
 ---
 
 <div class="home">
-<h3> Posts </h3>
   <div class="posts">
-    {% for post in paginator.posts %}
+    {% for post in site.posts %}
       <div class="post">
         <p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
         <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="h2 post-title">{{ post.title }}</h3></a>
@@ -20,6 +19,4 @@ title: Post index
       </div>
     {% endfor %}
   </div>
-
-  {% include pagination.html %}
 </div>
