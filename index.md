@@ -11,7 +11,7 @@ Travel to Ilhabela.
 
 ### Thursday 2 July
 - Introduction to comparative methods [lecture]({{ site.baseurl }}/assets/IntroComparativeMethods_2015_v1.pdf) - *Harmon*
-- Introduction to basic R [exercise ADD]() - *Buckner*
+- Introduction to basic R [exercise]({{ site.baseurl }}/instruction/2015/07/02/Intro_to_R/) - *Buckner*
 - Introduction to phylogenies in R [exercise ADD]() - *Revell*
 - Brownian motion and PICs [lecture]({{ site.baseurl }}/assets/BMIntro_2015_v1.pdf) - *Harmon*
 - PICs [exercise ADD]() - *Ferreira*
