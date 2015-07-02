@@ -6,7 +6,6 @@ summary:	Introduction to the "phylo" object class and basic phylogenetics packag
 categories:	Instruction
 ---
 
-<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
