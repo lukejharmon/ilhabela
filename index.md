@@ -36,4 +36,5 @@ Return home.
 ### Datasets
 
 <a href="https://drive.google.com/file/d/0B9R4DAZPUvjiV2VhTUxOTlRuQUU/edit?usp=sharing">anolisDataAppended.csv</a> <br>
-<a href="https://drive.google.com/file/d/0B9R4DAZPUvjiSkl1aFY2TkNMVFk/edit?usp=sharing">anolis.phy</a>
+<a href="https://drive.google.com/file/d/0B9R4DAZPUvjiSkl1aFY2TkNMVFk/edit?usp=sharing">anolis.phy</a><br>
+<a href="http://www.phytools.org/Bogota2014/Exercise_1.1/anole.data.csv">anole.data.csv</a>
