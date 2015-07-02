@@ -6,8 +6,6 @@ layout: default
 <a href="http://commons.wikimedia.org/wiki/File:Ilhabela_Mar2005_001.jpg#/media/File:Ilhabela_Mar2005_001.jpg"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Ilhabela_Mar2005_001.jpg/1200px-Ilhabela_Mar2005_001.jpg" alt="View of Pereque Beach from ferry-boat"></a><br>"<a href="http://commons.wikimedia.org/wiki/File:Ilhabela_Mar2005_001.jpg#/media/File:Ilhabela_Mar2005_001.jpg">Ilhabela Mar2005 001</a>" by Guilherme Cinini <a href="//en.wikipedia.org/wiki/User:Gcinini" class="extiw" title="en:User:Gcinini">en:User:Gcinini</a> - english wikipedia. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.</p>
 </font>
 
-[Post index]({{ site.baseurl }}/postIndex/)
-
 ### Wednesday 1 July
 Travel to Ilhabela.
 
@@ -18,7 +16,7 @@ Travel to Ilhabela.
 - Brownian motion and PICs [lecture]({{ site.baseurl }}/assets/BMIntro_2015_v1.pdf) - *Harmon*
 - Brownian motion [exercise]({{ site.baseurl}}/instruction/2015/07/02/simulating-Brownian-motion/) - *Revell*
 - PICs [exercise]({{ site.baseurl}}/instruction/2015/07/02/phylogenetic-independent-contrasts/) - *Ferreira and Alencar*
-- Challenge problem solution - contrasts regression [TBA]()
+- Challenge problem solution - contrasts regression [solution]({{ site.baseurl}}/instruction/2015/07/02/PIC-challenge/) - *Revell*
 
 
 
