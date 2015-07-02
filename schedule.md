@@ -6,24 +6,25 @@ layout: default
 Travel to Ilhabela.
 
 ### Thursday 2 July
-*Morning*: Basic R, reading and plotting data and trees
-
-*Afternoon*: Brownian motion
+- Introduction to comparative methods [lecture]() - *Harmon*
+- Introduction to basic R [exercise]() - *Buckner*
+- Introduction to phylogenies in R [exercise]() - *Revell*
+- Brownian motion and PICs [lecture]() - *Harmon*
+- PICs [exercise]() - *Ferreira*
+- Challenge problem - contrasts regression [problem]()
 
 ### Friday 3 July
-*Morning*: PICs and PGLS
-
-*Afternoon*: Fitting models to single characters
+- PGLS [exercise]() - *Revell*
+- Other models for continuous characters [lecture]() - *Alfaro*
+- Fitting models of continuous characters [exercise]() - *Harmon*
+- Ancestral state reconstruction for continuous characters [exercise]() - *Revell*
+- Ancestral state reconstruction for discrete characters [exercise]() - *Revell*
 
 ### Saturday 4 July
-*Morning*: Ancestral character states
-
-*Afternoon*: Diversification models
+TBD
 
 ### Sunday 5 July
-*Morning*: Bayesian comparative methods
-
-*Afternoon*: Threshold models and advanced visualization
+TBD
 
 ### Monday 6 July
 Return home.
