@@ -15,7 +15,7 @@ Travel to Ilhabela.
 - Introduction to phylogenies in R [exercise]({{ site.baseurl }}/instruction/2015/07/02/introduction-phylogenies-in-R/) - *Revell*
 - Brownian motion and PICs [lecture]({{ site.baseurl }}/assets/BMIntro_2015_v1.pdf) - *Harmon*
 - Brownian motion [exercise]({{ site.baseurl}}/instruction/2015/07/02/simulating-Brownian-motion/) - *Revell*
-- PICs [exercise]({{ site.baseurl}}/instruction/2015/07/02/phylogenetic-independent-contrasts/) - *Ferreira*
+- PICs [exercise]({{ site.baseurl}}/instruction/2015/07/02/phylogenetic-independent-contrasts/) - *Ferreira and Alencar*
 - Challenge problem solution - contrasts regression [TBA]()
 
 
