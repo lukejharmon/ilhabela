@@ -27,6 +27,7 @@ Travel to Ilhabela.
 - Ancestral state reconstruction [lecture]({{ site.baseurl }}/assets/ancestral-states.pdf) - *Revell*
 - Ancestral state reconstruction for continuous characters [exercise]({{ site.baseurl }}/instruction/2015/07/03/ancestral-states-1/) - *Revell*
 - Ancestral state reconstruction for discrete characters [exercise]({{ site.baseurl }}/instruction/2015/07/03/ancestral-states-2/) - *Revell*
+- Trait evolution [challenge]({{ site.baseurl }}/ilhabela/2015/07/03/trait-challenge/) - *Harmon and Alfaro*
 
 ### Saturday 4 July
 TBD

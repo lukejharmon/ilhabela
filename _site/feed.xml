@@ -7,6 +7,33 @@
     <atom:link href="http://lukejharmon.github.io/ilhabela/ilhabela/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Trait Challenge</title>
+        <description>&lt;p&gt;Here are data from some fish called grunts.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/ilhabela/assets/grunts.phy&quot;&gt;grunts.phy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/ilhabela/assets/grunts.csv&quot;&gt;grunts.csv&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;These data contain a phylogenetic tree and some character data for species in the tree.
+You will use these data to practice the analyses you learned through today&amp;rsquo;s lecture.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;(P)GLS. Is there a correlation between traits 1 and 2 (ignoring the phylogeny - that is, using
+a standard correlation). Then use PGLS to determine if there is an evolutionary correlation
+between traits 1 and 2 in the dataset. Before figuring out your final results,
+use AIC to determine if it is a good idea to use an OU or Pagel&amp;rsquo;s lambda for the PGLS.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Models for continuous character evolution. Fit three models (BM, OU, and EB) to trait1, trait2, and trait3
+in your datamatrix. Summarize your results in a table.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ancestral character states. Reconstruct ancestral character states for the column habitat_names (which has reef versus non-reef)
+and trait1.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Fri, 03 Jul 2015 00:00:00 -0300</pubDate>
+        <link>http://lukejharmon.github.io/ilhabela/ilhabela/2015/07/03/trait-challenge/</link>
+        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/2015/07/03/trait-challenge/</guid>
+      </item>
+    
+      <item>
         <title>Reconstruction ancestral characters II, Discrete characters</title>
         <description>&lt;html&gt;
 &lt;head&gt;
@@ -4310,34 +4337,6 @@ $(document).ready(function () {
         <pubDate>Thu, 02 Jul 2015 00:00:00 -0300</pubDate>
         <link>http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/07/02/Intro_to_R/</link>
         <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/instruction/2015/07/02/Intro_to_R/</guid>
-      </item>
-    
-      <item>
-        <title>Course logistics</title>
-        <description>&lt;h2 id=&quot;basic-course-information&quot;&gt;Basic course information&lt;/h2&gt;
-
-&lt;p&gt;Hello students and TAs. This is the course website for Macroevolution in R 2015,
-taking place on Ilhabela from 1 to 6 July 2015.&lt;/p&gt;
-
-&lt;p&gt;You should have already recieved information about traveling to Ilhabela and
-food and housing while you are there.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;We are not able to offer you any travel support to attend the course. However, as you know, the workshop is free of
-charge and we do offer the following: free shared accommodation (two students per room) at the &lt;a href=&quot;http://www.ilhaflat.com&quot;&gt;Hotel Ilha Flata&lt;/a&gt; in Ilhabela, Sao Paulo State, Brazil for Jul. 1-6; free breakfast, lunch, &amp;amp; coffee breaks
-every course day (Jul. 2, 3, 4, &amp;amp; 5); free dinner on one night (date TBD, probably Jul. 5); and, for those &amp;gt;
-attending the Evolution Conference in Guarujá, a free shuttle bus from the conference venue to Hotel Ilha Flat. If
-you are not attending Evolution you will be responsible for all your travel arrangements to and from Ihla Bela. All
-students will be responsible for their own travel arrangements home after the workshop.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;code-resources&quot;&gt;Code resources&lt;/h2&gt;
-
-&lt;p&gt;Checkout the class &lt;a href=&quot;https://github.com/lukejharmon/ilhabela&quot;&gt;Github repository&lt;/a&gt;, which will be updated over the next few weeks.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 02 Jun 2015 00:00:00 -0300</pubDate>
-        <link>http://lukejharmon.github.io/ilhabela/ilhabela/information/2015/06/02/welcome-to-the-course/</link>
-        <guid isPermaLink="true">http://lukejharmon.github.io/ilhabela/ilhabela/information/2015/06/02/welcome-to-the-course/</guid>
       </item>
     
   </channel>
