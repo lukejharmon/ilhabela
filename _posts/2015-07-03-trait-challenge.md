@@ -19,5 +19,4 @@ use AIC to determine if it is a good idea to use an OU or Pagel's lambda for the
 2. Models for continuous character evolution. Fit three models (BM, OU, and EB) to trait1, trait2, and trait3
 in your datamatrix. Summarize your results in a table.
 
-3. Ancestral character states. Reconstruct ancestral character states for the column habitat_names (which has reef versus non-reef)
-and trait1.
+3. Ancestral character states. Reconstruct ancestral character states for the column habitat_names (which has reef versus non-reef) and trait1.
