@@ -24,7 +24,7 @@ Travel to Ilhabela.
 - PGLS [exercise]({{ site.baseurl}}/instruction/2015/07/03/PGLS/) - *Harmon*
 - Other models for continuous characters [lecture]({{ site.baseurl }}/lectures/alfarinho/ContinuousModels_ilhabela_2015.pdf) - *Alfaro*
 - Fitting models of continuous characters [exercise]({{ site.baseurl }}/instruction/2015/06/02/ContinuousModels/) - *Harmon*
-- Ancestral state reconstruction [lecture ADD]() - *Revell*
+- Ancestral state reconstruction [lecture]({{ site.baseurl }}/assets/ancestral-states.pdf) - *Revell*
 - Ancestral state reconstruction for continuous characters [exercise]({{ site.baseurl }}/instruction/2015/07/03/ancestral-states-1/) - *Revell*
 - Ancestral state reconstruction for discrete characters [exercise]({{ site.baseurl }}/instruction/2015/07/03/ancestral-states-2/) - *Revell*
 
