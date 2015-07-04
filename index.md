@@ -39,7 +39,7 @@ Travel to Ilhabela.
 - Mk models and character correlations [exercise TBA]() - *Revell*
 
 ### Sunday 5 July
-TBD
+- 
 
 ### Monday 6 July
 Return home.
