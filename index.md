@@ -34,12 +34,12 @@ Travel to Ilhabela.
 - Diversification with BAMM and RPanda [exercise]({{ site.baseurl }}/instruction/2015/07/02/diversification-analysis-bamm-rpanda/) - *Ferreira and Alencar*
 - Exploring diversification models challenge [solution TBA]() - *Ferreira and Alencar*
 - Multi-rate, multi-regime, and multivariate models for continuous traits [exercise]({{ site.baseurl}}/instruction/2015/07/04/multi-regime-models/) - *Revell*
-- Multi-rate challenge [solution TBA]() - *Revell*
+- Multi-rate challenge [solution]({{ site.baseurl}}/instruction/2015/07/04/multi-regime-challenge/) - *Revell*
 - Mk models and character correlations [lecture]({{ site.baseurl }}/assets/correlatedMk.pdf) - *Harmon*
 - Mk models and character correlations [exercise TBA]() - *Revell*
 
 ### Sunday 5 July
-- 
+-
 
 ### Monday 6 July
 Return home.
