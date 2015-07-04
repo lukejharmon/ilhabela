@@ -33,7 +33,7 @@ Travel to Ilhabela.
 - Diversification [lecture TBA]() - *Alfaro*
 - Diversification with BAMM and RPanda [exercise]({{ site.baseurl }}/instruction/2015/07/02/diversification-analysis-bamm-rpanda/) - *Ferreira and Alencar*
 - Exploring diversification models challenge [solution TBA]() - *Ferreira and Alencar*
-- Multi-rate, multi-regime, and multivariate models for continuous traits [exercise TBA]() - *Revell*
+- Multi-rate, multi-regime, and multivariate models for continuous traits [exercise]({{ site.baseurl}}/instruction/2015/07/04/multi-regime-models/) - *Revell*
 - Multi-rate challenge [solution TBA]() - *Revell*
 - Mk models and character correlations [lecture]({{ site.baseurl }}/assets/correlatedMk.pdf) - *Harmon*
 - Mk models and character correlations [exercise TBA]() - *Revell*
