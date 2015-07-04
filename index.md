@@ -30,7 +30,13 @@ Travel to Ilhabela.
 - Trait evolution [challenge]({{ site.baseurl }}/2015/07/03/trait-challenge/) and [solution]({{ site.baseurl }}/instruction/2015/07/03/solution/) - *Harmon and Alfaro*
 
 ### Saturday 4 July
-TBD
+- Diversification [lecture TBA]() - *Alfaro*
+- Diversification with BAMM and RPanda [exercise]({{ site.baseurl }}/instruction/2015/07/02/diversification-analysis-bamm-rpanda/) - *Ferreira and Alencar*
+- Exploring diversification models challenge [solution TBA]() - *Ferreira and Alencar*
+- Multi-rate, multi-regime, and multivariate models for continuous traits [exercise TBA]() - *Revell*
+- Multi-rate challenge [solution TBA]() - *Revell*
+- Mk models and character correlations [lecture TBA]() - *Harmon*
+- Mk models and character correlations [exercise TBA]() - *Revell*
 
 ### Sunday 5 July
 TBD
