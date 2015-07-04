@@ -1,0 +1,540 @@
+---
+layout:		post
+title: 		Multi-regime challenge question
+date:		2015-07-04
+summary:	Exploring multi-regime and multivariate models in R
+categories:	Instruction
+---
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Multi-optimum OU evolution</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h3>Multi-optimum OU evolution</h3>
+
+<pre><code class="r">## load OUwie &amp; phytools
+library(OUwie)
+</code></pre>
+
+<pre><code>## Loading required package: ape
+## Loading required package: nloptr
+</code></pre>
+
+<pre><code class="r">library(phytools)
+</code></pre>
+
+<pre><code>## Loading required package: maps
+</code></pre>
+
+<pre><code class="r">## read anole data from file
+X&lt;-read.csv(&quot;Anolis.csv&quot;,row.names=1,header=TRUE)
+## read anole tree
+tree&lt;-read.tree(&quot;Anolis.tre&quot;)
+## make analysis input data.frame
+ecomorph&lt;-as.matrix(X)[,&quot;ecomorph&quot;]
+svl&lt;-as.matrix(X)[,&quot;svl&quot;]
+data&lt;-data.frame(Genus_species=rownames(X),Reg=ecomorph,X=as.numeric(svl))
+## perform stochastic mapping
+trees&lt;-make.simmap(tree,ecomorph,nsim=10)
+</code></pre>
+
+<pre><code>## make.simmap is sampling character histories conditioned on the transition matrix
+## Q =
+</code></pre>
+
+<pre><code>##            CG         GB          TC         TG          Tr         Tw
+## CG -0.3933357  0.0000000  0.19321489  0.0000000  0.00000000  0.2001209
+## GB  0.0000000 -0.5024038  0.00000000  0.1959991  0.00000000  0.3064047
+## TC  0.1932149  0.0000000 -0.74116782  0.0000000  0.09187982  0.4560731
+## TG  0.0000000  0.1959991  0.00000000 -0.4428234  0.00000000  0.2468243
+## Tr  0.0000000  0.0000000  0.09187982  0.0000000 -0.23442525  0.1425454
+## Tw  0.2001209  0.3064047  0.45607311  0.2468243  0.14254542 -1.3519684
+</code></pre>
+
+<pre><code>## (estimated using likelihood);
+## and (mean) root node prior probabilities
+## pi =
+</code></pre>
+
+<pre><code>##        CG        GB        TC        TG        Tr        Tw 
+## 0.1666667 0.1666667 0.1666667 0.1666667 0.1666667 0.1666667
+</code></pre>
+
+<pre><code>## Done.
+</code></pre>
+
+<pre><code class="r">## hack
+trees&lt;-lapply(trees,function(x){ x$node.label&lt;-getStates(x,&quot;nodes&quot;); x })
+class(trees)&lt;-&quot;multiPhylo&quot;
+## fit OU
+fitOU&lt;-lapply(trees,OUwie,data=data,model=&quot;OUM&quot;,simmap.tree=TRUE)
+</code></pre>
+
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results. 
+## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.
+</code></pre>
+
+<pre><code class="r">## summarize the results across analyses
+theta&lt;-t(sapply(fitOU,function(x) x$theta[,1]))
+colnames(theta)&lt;-fitOU[[1]]$tot.states
+theta
+</code></pre>
+
+<pre><code>##             CG       GB       TC       TG       Tr       Tw
+##  [1,] 5.195380 3.704090 4.138414 4.118540 3.817658 3.908048
+##  [2,] 5.686878 3.614559 4.049840 4.133195 3.819009 3.979025
+##  [3,] 5.263409 3.695316 4.152514 4.107550 3.835559 3.879574
+##  [4,] 5.179145 3.663865 4.118413 4.117061 3.787933 3.935703
+##  [5,] 5.812586 3.647810 4.082441 4.110418 3.816441 3.929778
+##  [6,] 5.336393 3.679318 4.234161 4.110181 3.804458 3.969039
+##  [7,] 5.232107 3.668695 4.144867 4.108663 3.760949 3.896545
+##  [8,] 5.230976 3.657498 4.131510 4.105782 3.892274 3.867889
+##  [9,] 5.583534 3.652226 4.101999 4.144991 3.821046 3.908917
+## [10,] 5.539585 3.624411 4.165444 4.119165 3.816741 3.929854
+</code></pre>
+
+<pre><code class="r">colMeans(theta)
+</code></pre>
+
+<pre><code>##       CG       GB       TC       TG       Tr       Tw 
+## 5.405999 3.660779 4.131960 4.117555 3.817207 3.920437
+</code></pre>
+
+<pre><code class="r">apply(theta,2,var)
+</code></pre>
+
+<pre><code>##           CG           GB           TC           TG           Tr 
+## 0.0528268638 0.0007994982 0.0024971193 0.0001582489 0.0011305799 
+##           Tw 
+## 0.0012768616
+</code></pre>
+
+<h3>Multivariate Brownian evolution</h3>
+
+<pre><code class="r">## load phytools
+library(phytools)
+## read centrarchid tree
+tree&lt;-read.tree(&quot;Centrarchidae.tre&quot;)
+## read centrarchid data
+X&lt;-read.csv(&quot;Centrarchidae.csv&quot;,header=TRUE,row.names=1)
+X
+</code></pre>
+
+<pre><code>##                         feeding.mode gape.width buccal.length
+## Acantharchus_pomotis            pisc      0.114        -0.009
+## Lepomis_gibbosus                 non     -0.133        -0.009
+## Lepomis_microlophus              non     -0.151         0.012
+## Lepomis_punctatus                non     -0.103        -0.019
+## Lepomis_miniatus                 non     -0.134         0.001
+## Lepomis_auritus                  non     -0.222        -0.039
+## Lepomis_marginatus               non     -0.187        -0.075
+## Lepomis_megalotis                non     -0.073        -0.049
+## Lepomis_humilis                  non      0.024        -0.027
+## Lepomis_macrochirus              non     -0.191         0.002
+## Lepomis_gulosus                 pisc      0.131         0.122
+## Lepomis_symmetricus              non      0.013        -0.025
+## Lepomis_cyanellus               pisc     -0.002        -0.009
+## Micropterus_coosae              pisc      0.045        -0.009
+## Micropterus_notius              pisc      0.097        -0.009
+## Micropterus_treculi             pisc      0.056         0.001
+## Micropterus_salmoides           pisc      0.056        -0.059
+## Micropterus_floridanus          pisc      0.096         0.051
+## Micropterus_punctulatus         pisc      0.092         0.002
+## Micropterus_dolomieu            pisc      0.035        -0.069
+## Centrarchus_macropterus          non     -0.007        -0.055
+## Enneacantus_obesus               non      0.016        -0.005
+## Pomoxis_annularis               pisc     -0.004        -0.019
+## Pomoxis_nigromaculatus          pisc      0.105         0.041
+## Archolites_interruptus          pisc     -0.024         0.051
+## Ambloplites_ariommus            pisc      0.135         0.123
+## Ambloplites_rupestris           pisc      0.086         0.041
+## Ambloplites_cavifrons           pisc      0.130         0.040
+</code></pre>
+
+<pre><code class="r">## stochastic mapping of feeding mode on the tree (we would normally do x100)
+fmode&lt;-as.matrix(X)[,1]
+trees&lt;-make.simmap(tree,fmode,nsim=100)
+</code></pre>
+
+<pre><code>## make.simmap is sampling character histories conditioned on the transition matrix
+## Q =
+</code></pre>
+
+<pre><code>##            non      pisc
+## non  -4.228856  4.228856
+## pisc  4.228856 -4.228856
+</code></pre>
+
+<pre><code>## (estimated using likelihood);
+## and (mean) root node prior probabilities
+## pi =
+</code></pre>
+
+<pre><code>##  non pisc 
+##  0.5  0.5
+</code></pre>
+
+<pre><code>## Done.
+</code></pre>
+
+<pre><code class="r">## data
+X&lt;-as.matrix(X[,2:3])
+## fit model
+fit&lt;-lapply(trees,function(x,y) evol.vcv(x,y),y=X)
+r&lt;-t(sapply(fit,function(x) 
+c(cov2cor(x$R.multiple[,,&quot;non&quot;])[1,2],cov2cor(x$R.multiple[,,&quot;pisc&quot;])[1,2])))
+colnames(r)&lt;-c(&quot;r(non)&quot;,&quot;r(pisc)&quot;)
+r
+</code></pre>
+
+<pre><code>##              r(non)   r(pisc)
+##   [1,] -0.003329626 0.7570405
+##   [2,] -0.190872207 0.7557320
+##   [3,] -0.086503148 0.7761596
+##   [4,] -0.142029527 0.7606595
+##   [5,] -0.056392012 0.7778228
+##   [6,] -0.087586017 0.7687934
+##   [7,] -0.156202349 0.7582008
+##   [8,] -0.050055310 0.8057935
+##   [9,] -0.105622360 0.7979087
+##  [10,]  0.204348775 0.7161280
+##  [11,]  0.127016343 0.7598835
+##  [12,]  0.175557385 0.7263260
+##  [13,] -0.125129232 0.7581984
+##  [14,] -0.123772382 0.7608000
+##  [15,] -0.128673602 0.7655795
+##  [16,] -0.081680488 0.7608447
+##  [17,] -0.034678116 0.7625138
+##  [18,] -0.109736134 0.7656513
+##  [19,]  0.264963264 0.7140560
+##  [20,] -0.042744788 0.8350070
+##  [21,] -0.100281745 0.7642891
+##  [22,] -0.102982383 0.7674248
+##  [23,] -0.026692827 0.8071230
+##  [24,] -0.083104479 0.7735995
+##  [25,] -0.103250588 0.7666826
+##  [26,] -0.155412969 0.7558549
+##  [27,]  0.082215179 0.7854529
+##  [28,] -0.133140749 0.7645241
+##  [29,] -0.053748832 0.7772855
+##  [30,] -0.064307392 0.7595214
+##  [31,] -0.014544488 0.7803895
+##  [32,] -0.082179908 0.7682772
+##  [33,]  0.302742593 0.6846339
+##  [34,] -0.100570235 0.7598663
+##  [35,]  0.190266696 0.8094365
+##  [36,] -0.064397365 0.7656073
+##  [37,]  0.143464311 0.7475610
+##  [38,] -0.094360147 0.7593885
+##  [39,]  0.066206612 0.7607164
+##  [40,] -0.114894182 0.7616189
+##  [41,]  0.090723594 0.7987334
+##  [42,] -0.094498800 0.7552973
+##  [43,] -0.134277649 0.7534743
+##  [44,] -0.117715158 0.7772095
+##  [45,] -0.115284787 0.7668147
+##  [46,]  0.264354271 0.7698039
+##  [47,] -0.093793693 0.7809012
+##  [48,]  0.297341767 0.6766665
+##  [49,] -0.103536031 0.7609834
+##  [50,] -0.081802967 0.7619563
+##  [51,] -0.034187281 0.7595237
+##  [52,] -0.088139788 0.7608838
+##  [53,] -0.043452787 0.7704884
+##  [54,] -0.059796429 0.7641235
+##  [55,]  0.298766506 0.6974202
+##  [56,]  0.039348127 0.8755706
+##  [57,] -0.150255539 0.7545902
+##  [58,] -0.121486033 0.7888943
+##  [59,] -0.172333681 0.7633727
+##  [60,] -0.101178274 0.7699019
+##  [61,] -0.091594307 0.7783453
+##  [62,]  0.261420238 0.7080909
+##  [63,] -0.158991460 0.7504172
+##  [64,] -0.040127768 0.7582792
+##  [65,] -0.115613907 0.8366310
+##  [66,] -0.086048867 0.7942098
+##  [67,] -0.190773421 0.8176592
+##  [68,] -0.070912153 0.7908942
+##  [69,] -0.125485187 0.7794628
+##  [70,] -0.108208560 0.8116884
+##  [71,] -0.083306025 0.7686787
+##  [72,] -0.148114867 0.7561150
+##  [73,] -0.224080980 0.7318766
+##  [74,] -0.082629730 0.7635915
+##  [75,] -0.066203839 0.7800408
+##  [76,] -0.052850847 0.7695926
+##  [77,]  0.259644203 0.7063583
+##  [78,]  0.275135622 0.7926476
+##  [79,] -0.059735530 0.7671309
+##  [80,] -0.339474619 0.8503920
+##  [81,] -0.056491863 0.7635030
+##  [82,] -0.059277307 0.8378233
+##  [83,] -0.113294212 0.7646433
+##  [84,] -0.051694932 0.7589224
+##  [85,]  0.196545842 0.7256409
+##  [86,] -0.013303623 0.8583480
+##  [87,] -0.063802277 0.7681354
+##  [88,] -0.218783311 0.7698223
+##  [89,] -0.098294084 0.8236113
+##  [90,]  0.046482958 0.8078842
+##  [91,] -0.134307758 0.7556345
+##  [92,] -0.206182723 0.7443465
+##  [93,] -0.158014739 0.7636064
+##  [94,] -0.070572659 0.7930967
+##  [95,] -0.110957671 0.7653692
+##  [96,] -0.018472734 0.7479191
+##  [97,] -0.119710489 0.7776119
+##  [98,]  0.009240777 0.7770134
+##  [99,]  0.260074614 0.7113830
+## [100,] -0.104631559 0.7652208
+</code></pre>
+
+<pre><code class="r">colMeans(r)
+</code></pre>
+
+<pre><code>##      r(non)     r(pisc) 
+## -0.04116699  0.76900600
+</code></pre>
+
+<pre><code class="r">apply(r,2,var)
+</code></pre>
+
+<pre><code>##      r(non)     r(pisc) 
+## 0.017788245 0.001071565
+</code></pre>
+
+<p><i>Written by Liam J. Revell. Last updated July 4, 2015</i></p>
+
+<p></body>
+</html></p>
+
+</body>
+
+</html>
