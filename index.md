@@ -35,7 +35,7 @@ Travel to Ilhabela.
 - Exploring diversification models challenge [solution TBA]() - *Ferreira and Alencar*
 - Multi-rate, multi-regime, and multivariate models for continuous traits [exercise TBA]() - *Revell*
 - Multi-rate challenge [solution TBA]() - *Revell*
-- Mk models and character correlations [lecture TBA]() - *Harmon*
+- Mk models and character correlations [lecture]({{ site.baseurl }}/assets/correlatedMk.pdf) - *Harmon*
 - Mk models and character correlations [exercise TBA]() - *Revell*
 
 ### Sunday 5 July
