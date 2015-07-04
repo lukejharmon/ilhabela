@@ -1,0 +1,471 @@
+---
+layout:		post
+title: 		Testing for an evolutionary correlation between binary characters using Pagel's (1994) method
+date:		2015-07-04
+summary:	Pagel's (1994) method
+categories:	Instruction
+---
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>This final exercise is a short exercise designed to fit and test Pagel&#39;s (1994)
+method for testing for an evolutionary relationship between two binary 
+characters.</p>
+
+<p>To do this exercise, you will first need to download the following dataset &amp; 
+tree, although they can also be loaded directly from the web.</p>
+
+<p>The dataset is 
+<a href="http://www.phytools.org/Ilhabela2015/data/fitPagel-data.csv">here</a>
+and the corresponding phylogenetic tree can be downloaded 
+<a href="http://www.phytools.org/Ilhabela2015/data/fitPagel-tree.tre">here</a>.</p>
+
+<p>Let&#39;s load phytools and then our data and tree:</p>
+
+<pre><code class="r">library(phytools)
+tree&lt;-read.tree(&quot;http://www.phytools.org/Ilhabela2015/data/fitPagel-tree.tre&quot;)
+tree
+</code></pre>
+
+<pre><code>## 
+## Phylogenetic tree with 300 tips and 299 internal nodes.
+## 
+## Tip labels:
+##  t149, t150, t164, t165, t59, t60, ...
+## 
+## Rooted; includes branch lengths.
+</code></pre>
+
+<pre><code class="r">X&lt;-read.csv(&quot;http://www.phytools.org/Ilhabela2015/data/fitPagel-data.csv&quot;,
+    row.names=1,header=TRUE)
+## X is a big matrix, so let&#39;s just visualize the top part
+dim(X)
+</code></pre>
+
+<pre><code>## [1] 300   3
+</code></pre>
+
+<pre><code class="r">head(X)
+</code></pre>
+
+<pre><code>##      x y z
+## t149 a a b
+## t150 a b b
+## t164 b a b
+## t165 b b b
+## t59  a a b
+## t60  a a b
+</code></pre>
+
+<p>OK, having done this, we will use the phytools function <code>fitPagel</code>
+to fit Pagel&#39;s (1994) model. To get a sense of our data before we do, we 
+should first visualize the data on the tree. Let&#39;s try this:</p>
+
+<pre><code class="r">par(mfrow=c(1,2))
+plot(tree,show.tip.label=FALSE,no.margin=TRUE)
+par(fg=&quot;transparent&quot;)
+x&lt;-setNames(X[[1]],rownames(X))
+tiplabels(pie=to.matrix(x,c(&quot;a&quot;,&quot;b&quot;)),piecol=c(&quot;blue&quot;,&quot;red&quot;),
+    cex=0.3)
+plot(tree,show.tip.label=FALSE,no.margin=TRUE,direction=&quot;leftwards&quot;)
+y&lt;-setNames(X[[2]],rownames(X))
+tiplabels(pie=to.matrix(x,c(&quot;a&quot;,&quot;b&quot;)),piecol=c(&quot;blue&quot;,&quot;red&quot;),
+    cex=0.3)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<pre><code class="r">par(fg=&quot;black&quot;)
+</code></pre>
+
+<p>OK, so we can repeat that also with the third column of <code>X</code>.</p>
+
+<p>Now we&#39;re ready to run our model:</p>
+
+<pre><code class="r">fit.xy&lt;-fitPagel(tree,x,y)
+fit.xy
+</code></pre>
+
+<pre><code>## 
+##   Pagel&#39;s binary character correlation test:
+## 
+## Indepedent model rate matrix:
+##            a|a        a|b        b|a        b|b
+## a|a -1.6338807  0.7929193  0.8409613  0.0000000
+## a|b  0.4595753 -1.3005366  0.0000000  0.8409613
+## b|a  0.5940199  0.0000000 -1.3869392  0.7929193
+## b|b  0.0000000  0.5940199  0.4595753 -1.0535951
+## 
+## Dependent model rate matrix:
+##            a|a        a|b        b|a        b|b
+## a|a -1.0668090  0.6538049  0.4130040  0.0000000
+## a|b  0.9094257 -4.6819222  0.0000000  3.7724965
+## b|a  2.6064787  0.0000000 -4.2118579  1.6053792
+## b|b  0.0000000  0.3624456  0.3440528 -0.7064984
+## 
+## Model fit:
+##             log-likelihood
+## independent      -231.6494
+## dependent        -205.2088
+## 
+## Hypothesis test result:
+##   likelihood-ratio:  52.88121 
+##   p-value:  9.023704e-11
+</code></pre>
+
+<pre><code class="r">z&lt;-setNames(X[[3]],rownames(X))
+fit.xz&lt;-fitPagel(tree,x,z)
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<pre><code>## Warning in nlminb(rep(ip, length.out = np), function(p) dev(p), lower =
+## rep(0, : imaginary parts discarded in coercion
+</code></pre>
+
+<p><i>Written by Liam J. Revell. Last updated 4 July 2015.</i></p>
+
+</body>
+
+</html>

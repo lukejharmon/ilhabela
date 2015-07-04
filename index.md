@@ -36,7 +36,7 @@ Travel to Ilhabela.
 - Multi-rate, multi-regime, and multivariate models for continuous traits [exercise]({{ site.baseurl}}/instruction/2015/07/04/multi-regime-models/) - *Revell*
 - Multi-rate challenge [solution]({{ site.baseurl}}/instruction/2015/07/04/multi-regime-challenge/) - *Revell*
 - Mk models and character correlations [lecture]({{ site.baseurl }}/assets/correlatedMk.pdf) - *Harmon*
-- Mk models and character correlations [exercise TBA]() - *Revell*
+- Mk models and character correlations [exercise]({{ site.baseurl}}/instruction/2015/07/04/Pagel94-model/) - *Revell*
 
 ### Sunday 5 July
 -
