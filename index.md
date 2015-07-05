@@ -44,7 +44,7 @@ Travel to Ilhabela.
 - Evolution of continuous and discrete characters using the threshold model [lecture]({{ site.baseurl }}/assets/threshold-model.pdf) - *Revell*
 - Threshold model [exercise]({{ site.baseurl }}/instruction/2015/07/05/threshold-model/) - *Revell*
 - Placing fossil or recently extinct taxa on a tree using quantitative characters [lecture]({{ site.baseurl }}/assets/locate-fossil.pdf) - *Revell*
-- Placing recently extinct taxa on a tree using quantitative trait data [exercise]({{ site.baseurl }}/2015/07/05/locate-fossil/) - *Revell*
+- Placing recently extinct taxa on a tree using quantitative trait data [exercise]({{ site.baseurl }}/instruction/2015/07/05/locate-fossil/) - *Revell*
 
 ### Monday 6 July
 Return home.
