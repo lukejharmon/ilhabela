@@ -41,6 +41,8 @@ Travel to Ilhabela.
 ### Sunday 5 July
 - State dependent diversification [lecture]({{ site.baseurl }}/lectures/alfarinho/state_dependent_diversification_ilhabela_2015.pdf) *Alfaro*
 - BiSSE and HiSSE [exercise]({{ site.baseurl }}/2015/07/05/BiSSE-and-HiSSE/)
+- Evolution of continuous and discrete characters using the threshold model [lecture]({{ site.baseurl }}/assets/threshold-model.pdf) - *Revell*
+- Threshold model [exercise]({{ site.baseurl }}/2015/07/05/threshold-model/)
 
 ### Monday 6 July
 Return home.
