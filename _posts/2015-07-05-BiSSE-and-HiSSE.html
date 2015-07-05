@@ -129,9 +129,9 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
 }
 </style>
 <div class="container-fluid main-container">
@@ -170,7 +170,7 @@ img {
 <span class="comment"># compare models</span>
 <span class="identifier">anova</span><span class="paren">(</span><span class="identifier">bdMLFit</span>, <span class="identifier">pure.birth</span> <span class="operator">=</span> <span class="identifier">pbMLFit</span><span class="paren">)</span></code></pre>
 <pre><code>##            Df  lnLik     AIC   ChiSq Pr(&gt;|Chi|)
-## full        2 21.621 -39.242                   
+## full        2 21.621 -39.242
 ## pure.birth  1 21.455 -40.910 0.33161     0.5647</code></pre>
 <p>The beauty of diversitree is that we can very easily run a Bayesian analysis of diversification rates.</p>
 <pre class="r"><code class="r"><span class="identifier">bdSamples</span> <span class="operator">&lt;-</span> <span class="identifier">mcmc</span><span class="paren">(</span><span class="identifier">bdModel</span>, <span class="identifier">bdMLFit</span><span class="operator">$</span><span class="identifier">par</span>, <span class="identifier">nsteps</span> <span class="operator">=</span> <span class="number">1e+05</span>, <span class="identifier">lower</span> <span class="operator">=</span> <span class="identifier">c</span><span class="paren">(</span><span class="number">0</span>, <span class="number">0</span><span class="paren">)</span>, <span class="identifier">upper</span> <span class="operator">=</span> <span class="identifier">c</span><span class="paren">(</span><span class="literal">Inf</span>,  <span class="literal">Inf</span><span class="paren">)</span>, <span class="identifier">w</span> <span class="operator">=</span> <span class="identifier">c</span><span class="paren">(</span><span class="number">0.1</span>, <span class="number">0.1</span><span class="paren">)</span>, <span class="identifier">fail.value</span> <span class="operator">=</span> <span class="operator">-</span><span class="literal">Inf</span>, <span class="identifier">print.every</span> <span class="operator">=</span> <span class="number">10000</span><span class="paren">)</span></code></pre>
@@ -220,7 +220,7 @@ img {
 <p>compare models</p>
 <pre class="r"><code class="r"><span class="identifier">anova</span><span class="paren">(</span><span class="identifier">nbModelMLFit</span>, <span class="identifier">constrained</span> <span class="operator">=</span> <span class="identifier">cnbModelMLFit</span><span class="paren">)</span></code></pre>
 <pre><code>##             Df   lnLik    AIC ChiSq Pr(&gt;|Chi|)
-## full         6 -212.54 437.09                 
+## full         6 -212.54 437.09
 ## constrained  4 -213.86 435.72 2.632     0.2682</code></pre>
 <p>let’s try a Bayesian analysis</p>
 <pre class="r"><code class="r"><span class="identifier">prior</span> <span class="operator">&lt;-</span> <span class="identifier">make.prior.exponential</span><span class="paren">(</span><span class="number">1</span><span class="operator">/</span><span class="paren">(</span><span class="number">2</span> <span class="operator">*</span> <span class="number">0.4</span><span class="paren">)</span><span class="paren">)</span></code></pre>
@@ -250,10 +250,10 @@ img {
 <div id="challenge-problem" class="section level2">
 <h2>Challenge problem</h2>
 <p>Repeat the above analyses with anoles (using the trait below). Fit a BiSSE model using both ML and Bayesian methods. What do you conclude?</p>
-<p>You need a binary trait, so use the following</p>
-<pre class="r"><code class="r"><span class="identifier">anoleData</span> <span class="operator">&lt;-</span> <span class="identifier">read.csv</span><span class="paren">(</span><span class="string">"~/Documents/teaching/revellClass/2014bogota/continuousModels/anolisDataAppended.csv"</span>, 
+<p>You need a binary trait, so use the anole data linked on the main page, and run the following:</p>
+<pre class="r"><code class="r"><span class="identifier">anoleData</span> <span class="operator">&lt;-</span> <span class="identifier">read.csv</span><span class="paren">(</span><span class="string">"anolisDataAppended.csv"</span>,
     <span class="identifier">row.names</span> <span class="operator">=</span> <span class="number">1</span><span class="paren">)</span>
-<span class="identifier">anoleTree</span> <span class="operator">&lt;-</span> <span class="identifier">read.tree</span><span class="paren">(</span><span class="string">"~/Documents/teaching/revellClass/2014bogota/continuousModels/anolis.phy"</span><span class="paren">)</span>
+<span class="identifier">anoleTree</span> <span class="operator">&lt;-</span> <span class="identifier">read.tree</span><span class="paren">(</span><span class="string">"anolis.phy"</span><span class="paren">)</span>
 
 <span class="identifier">ecomorph</span> <span class="operator">&lt;-</span> <span class="identifier">anoleData</span><span class="paren">[</span>, <span class="string">"ecomorph"</span><span class="paren">]</span>
 <span class="identifier">names</span><span class="paren">(</span><span class="identifier">ecomorph</span><span class="paren">)</span> <span class="operator">&lt;-</span> <span class="identifier">rownames</span><span class="paren">(</span><span class="identifier">anoleData</span><span class="paren">)</span>
@@ -266,15 +266,18 @@ img {
 <div id="hisse-the-hidden-state-speciation-and-extinction-model" class="section level1">
 <h1>HiSSE: The hidden state speciation and extinction model</h1>
 <p>This model, proposed by Beaulieu and O’Meara, offers one possible solution to the problem identified by Rabosky and Goldberg with the SSE methods. The idea is to provide an additional model to test a state dependent model against. In this model, the change in diversification is attributed to a second, unobserved character that co-occurs with the observed character identified in a typical BiSSE analysis. In this example, we are going to ask if transitions to coral reefs in haemulids change the diversification rate.</p>
-<p>First lets get the data read.</p>
+<p>First lets get the data, which is here: <br>
+<a href="{{ site.baseurl }}/assets/grunts.phy">grunts.phy</a><br>
+<a href="{{ site.baseurl }}/assets/grunts.csv">grunts.csv</a><br>
+</p>
 <pre class="r"><code class="r"><span class="keyword">library</span><span class="paren">(</span><span class="identifier">hisse</span><span class="paren">)</span></code></pre>
 <pre><code>## Loading required package: GenSA</code></pre>
 <pre class="r"><code class="r"><span class="keyword">library</span><span class="paren">(</span><span class="identifier">geiger</span><span class="paren">)</span>
 <span class="comment">##get the data</span>
 
-<span class="identifier">grunt.tree</span> <span class="operator">&lt;-</span> <span class="identifier">read.tree</span><span class="paren">(</span><span class="string">"/Users/michael_alfaro/Dropbox/content/hisse/haemulidae/grunts.phy"</span><span class="paren">)</span>
+<span class="identifier">grunt.tree</span> <span class="operator">&lt;-</span> <span class="identifier">read.tree</span><span class="paren">(</span><span class="string">"grunts.phy"</span><span class="paren">)</span>
 
-<span class="identifier">grunt.data</span> <span class="operator">&lt;-</span> <span class="identifier">read.csv</span><span class="paren">(</span><span class="string">"/Users/michael_alfaro/Dropbox/content/hisse/haemulidae/grunts.csv"</span>, <span class="identifier">row.names</span> <span class="operator">=</span> <span class="number">1</span><span class="paren">)</span>
+<span class="identifier">grunt.data</span> <span class="operator">&lt;-</span> <span class="identifier">read.csv</span><span class="paren">(</span><span class="string">"grunts.csv"</span>, <span class="identifier">row.names</span> <span class="operator">=</span> <span class="number">1</span><span class="paren">)</span>
 <span class="identifier">head</span><span class="paren">(</span><span class="identifier">grunt.data</span><span class="paren">)</span></code></pre>
 <pre><code>##                          habitat habitat.names     trait1       trait2
 ## Pomadasys_panamensis           0      non-reef -0.1097252 -0.221171872
@@ -301,8 +304,8 @@ img {
 <span class="identifier">trans.rates.hisse</span> <span class="operator">&lt;-</span> <span class="identifier">ParDrop</span><span class="paren">(</span><span class="identifier">trans.rates.hisse</span>, <span class="identifier">c</span><span class="paren">(</span><span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">10</span><span class="paren">)</span><span class="paren">)</span>
 <span class="identifier">trans.rates.hisse</span><span class="paren">[</span><span class="operator">!</span><span class="identifier">is.na</span><span class="paren">(</span><span class="identifier">trans.rates.hisse</span><span class="paren">)</span> <span class="operator">&amp;</span> <span class="operator">!</span><span class="identifier">trans.rates.hisse</span> <span class="operator">==</span> <span class="number">0</span><span class="paren">]</span> <span class="operator">=</span> <span class="number">1</span>
 <span class="identifier">null.2.hisse</span> <span class="operator">&lt;-</span> <span class="identifier">hisse</span><span class="paren">(</span><span class="identifier">grunt.tree</span>, <span class="identifier">hd</span>, <span class="identifier">hidden.states</span><span class="operator">=</span><span class="literal">TRUE</span>, <span class="identifier">turnover.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span><span class="paren">)</span>, <span class="identifier">eps.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span><span class="paren">)</span>, <span class="identifier">trans.rate</span><span class="operator">=</span><span class="identifier">trans.rates.hisse</span><span class="paren">)</span></code></pre>
-<pre><code>## Initializing... 
-## Finished. Beginning subplex routine... 
+<pre><code>## Initializing...
+## Finished. Beginning subplex routine...
 ## Finished. Summarizing results...</code></pre>
 <p>Let’s store the likelihood and AIC to compare to a model where diversification rate in grunts depends on habitat.</p>
 <pre class="r"><code class="r"><span class="identifier">null.2.hisse</span><span class="operator">$</span><span class="identifier">Fit</span></code></pre>
@@ -325,30 +328,30 @@ img {
 ## (1)   1  NA</code></pre>
 <p>The hisse function takes turnover.anc and eps.anc as arguments. These arguments control the number of rate classes for the HiSSE model. The order of classes in these arguments corresponds to 0A, 1A, 0B, 1B. Since we want states 0 and 1 (marine and reef) to have different states, and no hidden state B we will pass (1,2,0,0) to these arguments. This gives rate class 1 to marine, rate class 2 to reef, and no rate classes for 0B or 1B).</p>
 <pre class="r"><code class="r"><span class="identifier">pp.bisse.no.hidden</span> <span class="operator">&lt;-</span> <span class="identifier">hisse</span><span class="paren">(</span><span class="identifier">grunt.tree</span>, <span class="identifier">hd</span>, <span class="identifier">hidden.states</span><span class="operator">=</span><span class="literal">FALSE</span>, <span class="identifier">turnover.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span><span class="paren">)</span>, <span class="identifier">eps.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span><span class="paren">)</span>, <span class="identifier">trans.rate</span><span class="operator">=</span><span class="identifier">trans.rates.bisse</span>, <span class="identifier">output.type</span><span class="operator">=</span><span class="string">"raw"</span><span class="paren">)</span></code></pre>
-<pre><code>## Initializing... 
-## Finished. Beginning subplex routine... 
+<pre><code>## Initializing...
+## Finished. Beginning subplex routine...
 ## Finished. Summarizing results...</code></pre>
 <pre class="r"><code class="r"><span class="identifier">pp.bisse.no.hidden</span></code></pre>
-<pre><code>## 
+<pre><code>##
 ## Fit
 ##      -lnL       AIC      AICc ntax
 ##  127.9808 -243.9616 -242.0081   50
-## 
-## Probability of extinction: 
-## 
+##
+## Probability of extinction:
+##
 ## Diversification Rates
 ##                     lambda           mu
 ## rate0             36.18318 1.468841e-13
 ## alpha0             1.00000 1.000000e+00
 ## beta0              1.00000 1.000000e+00
 ## timeslice.factor0  1.00000 1.000000e+00
-## 
+##
 ##                    lambda           mu
 ## rate1             63.1213 1.873791e-15
 ## alpha1             1.0000 1.000000e+00
 ## beta1              1.0000 1.000000e+00
 ## timeslice.factor1  1.0000 1.000000e+00
-## 
+##
 ## Transition Rates
 ##              (0)      (1)
 ## (0) 0.000000e+00 7.676702
@@ -369,30 +372,30 @@ img {
 <p>Allowing the diversification rate to simply change on the tree is better than invoking habitat. dependent diversification The hisse null is more complex than a typical BiSSE null that says that all rates are equal across the tree.</p>
 <pre class="r"><code class="r"><span class="identifier">trans.rates.bisse</span> <span class="operator">&lt;-</span> <span class="identifier">TransMatMaker</span><span class="paren">(</span><span class="identifier">hidden.states</span><span class="operator">=</span><span class="literal">FALSE</span><span class="paren">)</span>
 <span class="identifier">bisse.null</span> <span class="operator">&lt;-</span> <span class="identifier">hisse</span><span class="paren">(</span><span class="identifier">grunt.tree</span>, <span class="identifier">hd</span>, <span class="identifier">hidden.states</span><span class="operator">=</span><span class="literal">FALSE</span>, <span class="identifier">turnover.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span><span class="paren">)</span>, <span class="identifier">eps.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span><span class="paren">)</span>, <span class="identifier">trans.rate</span><span class="operator">=</span><span class="identifier">trans.rates.bisse</span>, <span class="identifier">output.type</span><span class="operator">=</span><span class="string">"raw"</span><span class="paren">)</span></code></pre>
-<pre><code>## Initializing... 
-## Finished. Beginning subplex routine... 
+<pre><code>## Initializing...
+## Finished. Beginning subplex routine...
 ## Finished. Summarizing results...</code></pre>
 <pre class="r"><code class="r"><span class="identifier">bisse.null</span></code></pre>
-<pre><code>## 
+<pre><code>##
 ## Fit
 ##      -lnL      AIC      AICc ntax
 ##  126.2475 -244.495 -243.6061   50
-## 
-## Probability of extinction: 
-## 
+##
+## Probability of extinction:
+##
 ## Diversification Rates
 ##                     lambda           mu
 ## rate0             48.00023 2.368666e-15
 ## alpha0             1.00000 1.000000e+00
 ## beta0              1.00000 1.000000e+00
 ## timeslice.factor0  1.00000 1.000000e+00
-## 
+##
 ##                     lambda           mu
 ## rate1             48.00023 2.368666e-15
 ## alpha1             1.00000 1.000000e+00
 ## beta1              1.00000 1.000000e+00
 ## timeslice.factor1  1.00000 1.000000e+00
-## 
+##
 ## Transition Rates
 ##              (0)      (1)
 ## (0) 0.000000e+00 7.755563
@@ -419,8 +422,8 @@ img {
 <span class="identifier">trans.rates.hisse</span> <span class="operator">&lt;-</span> <span class="identifier">ParDrop</span><span class="paren">(</span><span class="identifier">trans.rates.hisse</span>, <span class="identifier">c</span><span class="paren">(</span><span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">12</span><span class="paren">)</span><span class="paren">)</span></code></pre>
 <p>When we call HiSSE with a hidden state we want to add state 1B as a separate rate class. Recall that turnover.anc and eps.anc accept rate class designations in this order: 0A, 1A, 0B, 1B so turnover.anc=c(1,2,0,3) says we want separate rate classes for 0A, 1A, and 1B and will specify that 0B (marine, hidden) does not exist.</p>
 <pre class="r"><code class="r"><span class="identifier">hisse.grunts</span> <span class="operator">&lt;-</span> <span class="identifier">hisse</span><span class="paren">(</span><span class="identifier">grunt.tree</span>, <span class="identifier">hd</span>, <span class="identifier">hidden.states</span><span class="operator">=</span><span class="literal">TRUE</span>, <span class="identifier">turnover.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span><span class="paren">)</span>, <span class="identifier">eps.anc</span><span class="operator">=</span><span class="identifier">c</span><span class="paren">(</span><span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span><span class="paren">)</span>, <span class="identifier">trans.rate</span><span class="operator">=</span><span class="identifier">trans.rates.hisse</span>, <span class="identifier">output.type</span><span class="operator">=</span><span class="string">"raw"</span><span class="paren">)</span></code></pre>
-<pre><code>## Initializing... 
-## Finished. Beginning subplex routine... 
+<pre><code>## Initializing...
+## Finished. Beginning subplex routine...
 ## Finished. Summarizing results...</code></pre>
 <pre class="r"><code class="r"><span class="identifier">hisse.logL</span> <span class="operator">&lt;-</span> <span class="identifier">hisse.grunts</span><span class="operator">$</span><span class="identifier">loglik</span>
 <span class="identifier">hisse.AIC</span> <span class="operator">&lt;-</span> <span class="identifier">hisse.grunts</span><span class="operator">$</span><span class="identifier">AIC</span>
