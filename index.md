@@ -39,7 +39,8 @@ Travel to Ilhabela.
 - Mk models and character correlations [exercise]({{ site.baseurl}}/instruction/2015/07/04/Pagel94-model/) - *Revell*
 
 ### Sunday 5 July
--
+- State dependent diversification [lecture]({{ site.baseurl }}/lectures/alfarinho/state_dependent_diversification_ilhabela_2015.pdf) *Alfaro*
+- BiSSE and HiSSE [exercise]
 
 ### Monday 6 July
 Return home.
