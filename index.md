@@ -45,6 +45,8 @@ Travel to Ilhabela.
 - Threshold model [exercise]({{ site.baseurl }}/instruction/2015/07/05/threshold-model/) - *Revell*
 - Placing fossil or recently extinct taxa on a tree using quantitative characters [lecture]({{ site.baseurl }}/assets/locate-fossil.pdf) - *Revell*
 - Placing recently extinct taxa on a tree using quantitative trait data [exercise]({{ site.baseurl }}/instruction/2015/07/05/locate-fossil/) - *Revell*
+- Locate yeti challenge problem [solution TBA]()
+- Visualization and plotting [exercise]()
 
 ### Monday 6 July
 Return home.
